@@ -12,8 +12,9 @@ INSERT INTO questions VALUES (NEXTVAL('questions_id_seq'), 'Your Department''s (
 INSERT INTO questions VALUES (NEXTVAL('questions_id_seq'), 'The level of customer service (internal or external) your Team provides', 1);
 INSERT INTO questions VALUES (NEXTVAL('questions_id_seq'), 'Managing costs and resources in your Team', 1);
 
-SELECT * FROM questions;
+SELECT id FROM questions where questions = '';
 TRUNCATE TABLE questions;
+
 
 CREATE OR REPLACE SEQUENCE answers_id_seq START 1; 
 CREATE OR REPLACE TABLE answers (
@@ -23,3 +24,5 @@ CREATE OR REPLACE TABLE answers (
     answers varchar,
     FOREIGN KEY (questions_id) REFERENCES questions(id)
 );
+
+select * from answers;

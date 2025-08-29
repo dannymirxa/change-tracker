@@ -1,6 +1,7 @@
 import streamlit as st
 import duckdb
 import json
+import pandas as pd
 
 # Connect to the DuckDB database
 con = duckdb.connect("change_tracker.db")
@@ -73,23 +74,23 @@ def show_questions():
         horizontal=True
     )
 
-    st.write(f"Your gave score: {map_answer_with_score(1, managing_costs)}")
+    st.write(f"Your gave score: {map_answer_with_score(3, managing_costs)}")
 
     # Collect user answers into a dictionary
     answers = {
-        'user_id': st.session_state.get('username'),  # Assuming username can serve as user_id here
+        'user_id': con.sql(f"SELECT id FROM users where username = '{st.session_state.get('username')}'").fetchall()[0][0] ,  # Assuming username can serve as user_id here
         'responses': [
             {
-                'question_id': 1,
-                'answer': department_effectiveness
+                'question_id': con.sql("SELECT id FROM questions WHERE questions = 'Your Department''s (i.e. Operations, Merchandising etc.) effectiveness'").fetchall()[0][0],
+                'answer': int(map_answer_with_score(1, department_effectiveness))
             },
             {
-                'question_id': 2,
-                'answer': customer_service_level
+                'question_id': con.sql("SELECT id FROM questions WHERE questions = 'The level of customer service (internal or external) your Team provides'").fetchall()[0][0],
+                'answer': int(map_answer_with_score(2, customer_service_level))
             },
             {
-                'question_id': 3,
-                'answer': managing_costs
+                'question_id': con.sql("SELECT id FROM questions WHERE questions = 'Managing costs and resources in your Team'").fetchall()[0][0],
+                'answer': int(map_answer_with_score(3, managing_costs))
             }
         ]
     }
@@ -97,11 +98,17 @@ def show_questions():
     # Show Button to Save Answers
     if st.button("Submit Answers", key="submit_answers"):
         answers_json = json.dumps(answers)
-        st.write("Answers JSON ready for insertion:", answers_json)
-
-        # Convert answers dictionary to JSON string for storing or processing
-        answers_json = json.dumps(answers)
-        st.write("Answers JSON ready for insertion:", answers_json)
+        # Convert JSON to pandas DataFrame and display
+        responses_df = pd.json_normalize(answers, record_path='responses', meta='user_id')
+        st.write("Answers DataFrame ready for insertion:")
+        st.dataframe(responses_df)
+        # Insert data from DataFrame into the DuckDB answers table
+        for index, row in responses_df.iterrows():
+            con.execute(
+                "INSERT INTO answers (user_id, questions_id, answers) VALUES (?, ?, ?)",
+                (row['user_id'], row['question_id'], row['answer'])
+            )
+        st.success("Responses successfully inserted into the database.")
 
 # Control page navigation
 def navigate_pages():

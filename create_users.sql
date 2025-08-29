@@ -8,3 +8,5 @@ CREATE OR REPLACE TABLE users (
 
 INSERT INTO users VALUES (NEXTVAL('users_id_seq'), 'john_doe', 'john.doe@example.com');
 INSERT INTO users VALUES (NEXTVAL('users_id_seq'), 'jane_smith', 'jane.smith@example.com');
+
+SELECT * FROM users;

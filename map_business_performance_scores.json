@@ -12,5 +12,12 @@
     "Average": 3,
     "Below Average": 2,
     "Poor": 1
+  },
+  "3": {
+    "Very Efficient": 5,
+    "Efficient": 4,
+    "Neutral": 3,
+    "Inefficient": 2,
+    "Very Inefficient": 1
   }
 }
