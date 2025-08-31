@@ -1,3 +1,4 @@
+-- Active: 1756648795144@@127.0.0.1@3306
 
 
 CREATE OR REPLACE SEQUENCE questions_id_seq START 1; 
@@ -22,6 +23,8 @@ CREATE OR REPLACE TABLE answers (
     user_id INTEGER not null,
     questions_id INTEGER not null,
     answers varchar,
+    created_time  TIMESTAMP NOT NULL DEFAULT current_localtimestamp(),
+    modified_time TIMESTAMP NOT NULL DEFAULT current_localtimestamp(),
     FOREIGN KEY (questions_id) REFERENCES questions(id)
 );
 

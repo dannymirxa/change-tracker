@@ -18,16 +18,17 @@ print(dict(metrics_data))
 # Chart function
 def create_chart(metrics):
     fig, ax = plt.subplots(figsize=(8, 5))
+
     metric_names = list(dict(metrics).keys())
     scores = list(dict(metrics).values())
     y_positions = range(len(metrics))
 
-    ax.barh(y_positions, [5]*len(metrics), color="#e0e0e0", edgecolor="none")
-    ax.barh(y_positions, scores, color="#4a90e2")
     for i, score in enumerate(scores):
+        ax.hlines(y=i, xmin=0, xmax=score, color="#4a90e2", linewidth=5)
         ax.plot(score, i, 'o', color='black')
 
-    ax.set_yticks(y_positions)
+
+    ax.set_yticks(list(y_positions))
     ax.set_yticklabels(metric_names)
     ax.invert_yaxis()
     ax.set_xlim(0, 5)
@@ -37,6 +38,7 @@ def create_chart(metrics):
         ax.spines[spine].set_visible(False)
 
     return fig
+
 
 # print(dict(metrics_data).keys())
 

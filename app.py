@@ -116,16 +116,17 @@ def show_questions():
 # Chart function
 def create_chart(metrics):
     fig, ax = plt.subplots(figsize=(8, 5))
+
     metric_names = list(dict(metrics).keys())
     scores = list(dict(metrics).values())
     y_positions = range(len(metrics))
 
-    ax.barh(y_positions, [5]*len(metrics), color="#e0e0e0", edgecolor="none")
-    ax.barh(y_positions, scores, color="#4a90e2")
     for i, score in enumerate(scores):
+        ax.hlines(y=i, xmin=0, xmax=score, color="#4a90e2", linewidth=5)
         ax.plot(score, i, 'o', color='black')
 
-    ax.set_yticks(y_positions)
+
+    ax.set_yticks(list(y_positions))
     ax.set_yticklabels(metric_names)
     ax.invert_yaxis()
     ax.set_xlim(0, 5)
@@ -138,6 +139,28 @@ def create_chart(metrics):
 
 def show_results_page():
 
+    metrics_data = con.sql(f"""                        
+                            SELECT
+                                q.questions,
+                                CAST(a.answers AS INTEGER) AS answers
+                            FROM answers a
+                                JOIN users u      ON u.id = a.user_id
+                                JOIN questions q  ON q.id = a.questions_id
+                                JOIN drivers d    ON d.id = q.drivers_id
+                            WHERE u.username = '{st.session_state['username']}'
+                                AND d.drivers_name = 'Business Performance'
+                                QUALIFY ROW_NUMBER() OVER (
+                                PARTITION BY q.id
+                            ORDER BY a.modified_time DESC, a.id DESC  -- tie-breaker on id
+                            ) = 1;
+                        """).fetchall()
+    
+    st.title("Transformation Leadership Dashboard")
+
+    with st.expander("Leadership Effectiveness"):
+        st.write("Click to view detailed metrics.")
+        fig = create_chart(metrics_data)
+        st.pyplot(fig) # Render the chart
 
 # Control page navigation
 def navigate_pages():
