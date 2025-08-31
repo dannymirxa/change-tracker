@@ -2,6 +2,7 @@ import streamlit as st
 import duckdb
 import json
 import pandas as pd
+import matplotlib.pyplot as plt
 
 # Connect to the DuckDB database
 con = duckdb.connect("change_tracker.db")
@@ -44,6 +45,8 @@ def show_welcome_page():
     if st.button("Go to Questionnaire", key="go_to_questionnaire"):
         st.session_state['page'] = 'questions'
 
+id_questions= dict(con.sql("SELECT id, questions FROM questions;").fetchall())
+questions_id= dict(con.sql("SELECT questions, id FROM questions;").fetchall())
 
 def show_questions():
     st.title("Questions")
@@ -51,7 +54,7 @@ def show_questions():
     st.header("How have the following changed in the last 6 months?", divider=True)
     # Example question about department's effectiveness
     department_effectiveness = st.radio(
-        "Your Department's (i.e. Operations, Merchandising etc.) effectiveness",
+        id_questions[1],
         ('Very Effective', 'Effective', 'Neutral', 'Ineffective', 'Very Ineffective'),
         horizontal=True
     )
@@ -60,7 +63,7 @@ def show_questions():
 
     # Question about customer service level
     customer_service_level = st.radio(
-        "The level of customer service (internal or external) your Team provides",
+        id_questions[2],
         ('Excellent', 'Good', 'Average', 'Below Average', 'Poor'),
         horizontal=True
     )
@@ -69,7 +72,7 @@ def show_questions():
 
     # Question about managing costs and resources
     managing_costs = st.radio(
-        "Managing costs and resources in your Team",
+        id_questions[3],
         ('Very Efficient', 'Efficient', 'Neutral', 'Inefficient', 'Very Inefficient'),
         horizontal=True
     )
@@ -81,15 +84,15 @@ def show_questions():
         'user_id': con.sql(f"SELECT id FROM users where username = '{st.session_state.get('username')}'").fetchall()[0][0] ,  # Assuming username can serve as user_id here
         'responses': [
             {
-                'question_id': con.sql("SELECT id FROM questions WHERE questions = 'Your Department''s (i.e. Operations, Merchandising etc.) effectiveness'").fetchall()[0][0],
+                'question_id': questions_id[id_questions[1]],
                 'answer': int(map_answer_with_score(1, department_effectiveness))
             },
             {
-                'question_id': con.sql("SELECT id FROM questions WHERE questions = 'The level of customer service (internal or external) your Team provides'").fetchall()[0][0],
+                'question_id': questions_id[id_questions[2]],
                 'answer': int(map_answer_with_score(2, customer_service_level))
             },
             {
-                'question_id': con.sql("SELECT id FROM questions WHERE questions = 'Managing costs and resources in your Team'").fetchall()[0][0],
+                'question_id': questions_id[id_questions[3]],
                 'answer': int(map_answer_with_score(3, managing_costs))
             }
         ]
@@ -97,7 +100,7 @@ def show_questions():
 
     # Show Button to Save Answers
     if st.button("Submit Answers", key="submit_answers"):
-        answers_json = json.dumps(answers)
+        st.session_state['page'] = 'results'
         # Convert JSON to pandas DataFrame and display
         responses_df = pd.json_normalize(answers, record_path='responses', meta='user_id')
         st.write("Answers DataFrame ready for insertion:")
@@ -106,9 +109,35 @@ def show_questions():
         for index, row in responses_df.iterrows():
             con.execute(
                 "INSERT INTO answers (user_id, questions_id, answers) VALUES (?, ?, ?)",
-                (row['user_id'], row['question_id'], row['answer'])
+                (int(row['user_id']), int(row['question_id']), row['answer'])
             )
         st.success("Responses successfully inserted into the database.")
+
+# Chart function
+def create_chart(metrics):
+    fig, ax = plt.subplots(figsize=(8, 5))
+    metric_names = list(dict(metrics).keys())
+    scores = list(dict(metrics).values())
+    y_positions = range(len(metrics))
+
+    ax.barh(y_positions, [5]*len(metrics), color="#e0e0e0", edgecolor="none")
+    ax.barh(y_positions, scores, color="#4a90e2")
+    for i, score in enumerate(scores):
+        ax.plot(score, i, 'o', color='black')
+
+    ax.set_yticks(y_positions)
+    ax.set_yticklabels(metric_names)
+    ax.invert_yaxis()
+    ax.set_xlim(0, 5)
+    ax.set_xlabel("Score")
+    ax.set_title("Transformation Leadership Metrics")
+    for spine in ["top", "right", "left"]:
+        ax.spines[spine].set_visible(False)
+
+    return fig
+
+def show_results_page():
+
 
 # Control page navigation
 def navigate_pages():
@@ -118,5 +147,7 @@ def navigate_pages():
         show_welcome_page()
     elif st.session_state['page'] == 'questions':
         show_questions()
+    elif st.session_state['page'] == 'results':
+        show_results_page()
 
 navigate_pages()
