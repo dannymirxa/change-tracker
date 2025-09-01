@@ -1,15 +1,8 @@
 from database_client import con
-
 from modules import dict_to_nested_dict, list_to_dict, figure
-
-
 import streamlit as st
-import duckdb
-import json
 import pandas as pd
-import matplotlib.pyplot as plt
-
-
+import json
 
 with open("map_business_performance_scores.json", "r") as json_file:
     business_performance_scores_map = json.load(json_file)
@@ -196,31 +189,9 @@ def show_questions():
             )
         st.success("Responses successfully inserted into the database.")
 
-# Chart function
-def create_chart(metrics):
-    fig, ax = plt.subplots(figsize=(8, 5))
+def show_results_page():
 
-    metric_names = list(dict(metrics).keys())
-    scores = list(dict(metrics).values())
-    y_positions = range(len(metrics))
-
-    for i, score in enumerate(scores):
-        ax.hlines(y=i, xmin=0, xmax=score, color="#4a90e2", linewidth=5)
-        ax.plot(score, i, 'o', color='black')
-
-
-    ax.set_yticks(list(y_positions))
-    ax.set_yticklabels(metric_names)
-    ax.invert_yaxis()
-    ax.set_xlim(0, 5)
-    ax.set_xlabel("Score")
-    ax.set_title("Transformation Leadership Metrics")
-    for spine in ["top", "right", "left"]:
-        ax.spines[spine].set_visible(False)
-
-    return fig
-
-drivers_average_score_data = con.sql(f"""                        
+    drivers_average_score_data = con.sql(f"""                        
                           WITH latest_answers AS (
                             SELECT
                                 q.id AS question_id,
@@ -245,28 +216,26 @@ drivers_average_score_data = con.sql(f"""
                             GROUP BY drivers_name;
                         """).fetchall()
 
-drivers_question_data = con.sql(
-                        f"""
-                        SELECT
-                            -- q.id AS question_id,
-                            d.drivers_name,
-                            q.questions,
-                            CAST(a.answers AS INTEGER) AS answers
-                        FROM answers a
-                            JOIN users u      ON u.id = a.user_id
-                            JOIN questions q  ON q.id = a.questions_id
-                            JOIN drivers d    ON d.id = q.drivers_id
-                        WHERE u.username = '{st.session_state['username']}'
-                            QUALIFY ROW_NUMBER() OVER (
-                            PARTITION BY q.id
-                            ORDER BY a.modified_time DESC, a.id DESC
-                        ) = 1
-                        """
-                        ).fetchall()
+    drivers_question_data = con.sql(
+                            f"""
+                            SELECT
+                                -- q.id AS question_id,
+                                d.drivers_name,
+                                q.questions,
+                                CAST(a.answers AS INTEGER) AS answers
+                            FROM answers a
+                                JOIN users u      ON u.id = a.user_id
+                                JOIN questions q  ON q.id = a.questions_id
+                                JOIN drivers d    ON d.id = q.drivers_id
+                            WHERE u.username = '{st.session_state['username']}'
+                                QUALIFY ROW_NUMBER() OVER (
+                                PARTITION BY q.id
+                                ORDER BY a.modified_time DESC, a.id DESC
+                            ) = 1
+                            """
+                            ).fetchall()
 
-drivers_question_data = dict_to_nested_dict(drivers_question_data)
-
-def show_results_page():
+    drivers_question_data = dict_to_nested_dict(drivers_question_data)
     
     st.title("Transformation Leadership Dashboard")
 
