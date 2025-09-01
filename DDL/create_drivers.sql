@@ -9,4 +9,5 @@ CREATE OR REPLACE TABLE drivers (
 INSERT INTO drivers VALUES (NEXTVAL('drivers_id_seq'), 'Business Performance');
 INSERT INTO drivers VALUES (NEXTVAL('drivers_id_seq'), 'Benefits Realization');
 
+
 SELECT * FROM drivers;

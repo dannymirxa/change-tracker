@@ -19,5 +19,12 @@
     "Neutral": 3,
     "Inefficient": 2,
     "Very Inefficient": 1
+  },
+  "4": {
+    "Considerable": 5,
+    "Good": 4,
+    "Moderate": 3,
+    "Bad": 2,
+    "Not at all": 1
   }
 }

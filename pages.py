@@ -1,25 +1,8 @@
-from database_client import con
-
-from modules import dict_to_nested_dict, list_to_dict, figure
-
-
 import streamlit as st
-import duckdb
-import json
 import pandas as pd
-import matplotlib.pyplot as plt
-
-
-
-with open("map_business_performance_scores.json", "r") as json_file:
-    business_performance_scores_map = json.load(json_file)
-
-def map_answer_with_score(question_id: int, answer: str):
-    return str(business_performance_scores_map[str(question_id)][answer])
-
-# Initialize session state
-if 'page' not in st.session_state:
-    st.session_state['page'] = 'login'
+import json
+from database_client import con
+from modules import dict_to_nested_dict, list_to_dict, figure
 
 def show_login_page():
     st.title("Login Page")
@@ -49,8 +32,16 @@ def show_welcome_page():
     if st.button("Go to Questionnaire", key="go_to_questionnaire"):
         st.session_state['page'] = 'questions'
 
+with open("map_business_performance_scores.json", "r") as json_file:
+    business_performance_scores_map = json.load(json_file)
+
+def map_answer_with_score(question_id: int, answer: str):
+    return str(business_performance_scores_map[str(question_id)][answer])
+
+
 id_questions= dict(con.sql("SELECT id, questions FROM questions;").fetchall())
 questions_id= dict(con.sql("SELECT questions, id FROM questions;").fetchall())
+
 
 def show_questions():
     st.title("Questions")
@@ -196,30 +187,6 @@ def show_questions():
             )
         st.success("Responses successfully inserted into the database.")
 
-# Chart function
-def create_chart(metrics):
-    fig, ax = plt.subplots(figsize=(8, 5))
-
-    metric_names = list(dict(metrics).keys())
-    scores = list(dict(metrics).values())
-    y_positions = range(len(metrics))
-
-    for i, score in enumerate(scores):
-        ax.hlines(y=i, xmin=0, xmax=score, color="#4a90e2", linewidth=5)
-        ax.plot(score, i, 'o', color='black')
-
-
-    ax.set_yticks(list(y_positions))
-    ax.set_yticklabels(metric_names)
-    ax.invert_yaxis()
-    ax.set_xlim(0, 5)
-    ax.set_xlabel("Score")
-    ax.set_title("Transformation Leadership Metrics")
-    for spine in ["top", "right", "left"]:
-        ax.spines[spine].set_visible(False)
-
-    return fig
-
 drivers_average_score_data = con.sql(f"""                        
                           WITH latest_answers AS (
                             SELECT
@@ -287,16 +254,3 @@ def show_results_page():
             fig = figure(title="Business Performance", data=list_to_dict(drivers_question_data['Benefits Realization']))
             st.write("Click to view detailed metrics.")
             st.plotly_chart(fig, key="child_Benefits_Realization")
-
-# Control page navigation
-def navigate_pages():
-    if st.session_state['page'] == 'login':
-        show_login_page()
-    elif st.session_state['page'] == 'welcome':
-        show_welcome_page()
-    elif st.session_state['page'] == 'questions':
-        show_questions()
-    elif st.session_state['page'] == 'results':
-        show_results_page()
-
-navigate_pages()
