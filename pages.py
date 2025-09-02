@@ -4,6 +4,16 @@ import json
 from database_client import con
 from modules import dict_to_nested_dict, list_to_dict, figure
 
+with open("map_business_performance_scores.json", "r") as json_file:
+    business_performance_scores_map = json.load(json_file)
+
+def map_answer_with_score(question_id: int, answer: str):
+    return str(business_performance_scores_map[str(question_id)][answer])
+
+# Initialize session state
+if 'page' not in st.session_state:
+    st.session_state['page'] = 'login'
+
 def show_login_page():
     st.title("Login Page")
 
@@ -32,16 +42,8 @@ def show_welcome_page():
     if st.button("Go to Questionnaire", key="go_to_questionnaire"):
         st.session_state['page'] = 'questions'
 
-with open("map_business_performance_scores.json", "r") as json_file:
-    business_performance_scores_map = json.load(json_file)
-
-def map_answer_with_score(question_id: int, answer: str):
-    return str(business_performance_scores_map[str(question_id)][answer])
-
-
 id_questions= dict(con.sql("SELECT id, questions FROM questions;").fetchall())
 questions_id= dict(con.sql("SELECT questions, id FROM questions;").fetchall())
-
 
 def show_questions():
     st.title("Questions")
@@ -187,7 +189,17 @@ def show_questions():
             )
         st.success("Responses successfully inserted into the database.")
 
-drivers_average_score_data = con.sql(f"""                        
+def show_results_page():
+    
+    # Create a row with two columns
+    col1, col2 = st.columns([9, 1])  # Adjust the ratio to push the button to the right
+
+    with col2:
+        if st.button("Back to Login", key="back_to_login"):
+            st.session_state['page'] = 'login'
+
+
+    drivers_average_score_data = con.sql(f"""                        
                           WITH latest_answers AS (
                             SELECT
                                 q.id AS question_id,
@@ -212,30 +224,28 @@ drivers_average_score_data = con.sql(f"""
                             GROUP BY drivers_name;
                         """).fetchall()
 
-drivers_question_data = con.sql(
-                        f"""
-                        SELECT
-                            -- q.id AS question_id,
-                            d.drivers_name,
-                            q.questions,
-                            CAST(a.answers AS INTEGER) AS answers
-                        FROM answers a
-                            JOIN users u      ON u.id = a.user_id
-                            JOIN questions q  ON q.id = a.questions_id
-                            JOIN drivers d    ON d.id = q.drivers_id
-                        WHERE u.username = '{st.session_state['username']}'
-                            QUALIFY ROW_NUMBER() OVER (
-                            PARTITION BY q.id
-                            ORDER BY a.modified_time DESC, a.id DESC
-                        ) = 1
-                        """
-                        ).fetchall()
+    drivers_question_data = con.sql(
+                            f"""
+                            SELECT
+                                -- q.id AS question_id,
+                                d.drivers_name,
+                                q.questions,
+                                CAST(a.answers AS INTEGER) AS answers
+                            FROM answers a
+                                JOIN users u      ON u.id = a.user_id
+                                JOIN questions q  ON q.id = a.questions_id
+                                JOIN drivers d    ON d.id = q.drivers_id
+                            WHERE u.username = '{st.session_state['username']}'
+                                QUALIFY ROW_NUMBER() OVER (
+                                PARTITION BY q.id
+                                ORDER BY a.modified_time DESC, a.id DESC
+                            ) = 1
+                            """
+                            ).fetchall()
 
-drivers_question_data = dict_to_nested_dict(drivers_question_data)
-
-def show_results_page():
+    drivers_question_data = dict_to_nested_dict(drivers_question_data)
     
-    st.title("Transformation Leadership Dashboard")
+    st.title("Change Tracker Dashboard")
 
     with st.expander("Business Performance"):
         fig = figure(title="Business Performance", data={drivers_average_score_data[0][0]: drivers_average_score_data[0][1]})
