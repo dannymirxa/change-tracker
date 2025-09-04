@@ -1,54 +1,54 @@
 # Change Tracker Dashboard
 
 ## Description
-
-The Change Tracker Dashboard is a web application built with Streamlit that allows users to interact with a set of questions and visualize results based on their inputs. The application is connected to a DuckDB database and provides a login interface for users.
+The Change Tracker Dashboard is a web application built with Streamlit that allows users to interact with a questionnaire and visualize results based on their inputs. The application interfaces with a DuckDB database, providing a secure login interface and dynamic feature set for user interaction.
 
 ## Features
 
-- **Login Interface**: Secure login mechanism using user emails stored in DuckDB.
-- **Dynamic Questionnaire**: Questions are loaded from the database, allowing for easy updates.
-- **Real-time Scoring**: User answers are scored and stored in the database.
-- **Visualization**: Displays user data in a dashboard using charts to present 'Leadership Effectiveness'.
+- **Login Interface**: Secure login using user emails stored in DuckDB. Users are greeted by name upon login.
+- **Dynamic Questionnaire**: Questions are loaded from the database and users' responses are mapped and scored based on predefined mappings.
+- **Real-time Scoring and Submission**: Scores are calculated as users respond and results are saved into the database immediately upon submission.
+- **Interactive Results Visualization**: Utilize Plotly to display average scores of business drivers in an expandable and interactive format, providing insights into 'Business Performance' and 'Benefits Realization'.
 
 ## Technologies Used
 
-- **Streamlit**: For building the web application interface.
-- **DuckDB**: A lightweight database used to store and query user and questionnaire data.
-- **Pandas**: Data manipulation and analysis library.
-- **Matplotlib**: Visualization library for plotting user scores.
+- **Streamlit**: For building the interactive web UI.
+- **DuckDB**: A lightweight database for storing user and questionnaire data.
+- **Pandas**: For data manipulation and conversion of JSON responses.
+- **Matplotlib and Plotly**: Visualization libraries for generating detailed dashboards and insights.
 
 ## Setup Instructions
 
-1. **Clone the repository**:
+1. **Clone the Repository**:
    ```bash
    git clone <repository-url>
    ```
 
-2. **Navigate to the project directory**:
+2. **Navigate to the Project Directory**:
    ```bash
    cd change-tracker
    ```
 
-3. **Install dependencies**:
+3. **Install Dependencies**:
    ```bash
    pip install -r requirements.txt
    ```
 
-4. **Run the application**:
+4. **Run the Application**:
    ```bash
    streamlit run app.py
    ```
 
 ## Usage Instructions
 
-- **Login** with your email to access the dashboard.
-- **Interact** with the questionnaire and submit your answers to view the results.
-- **Navigate** through the application to explore different sections including the Welcome page and Results Dashboard.
+- **Login** with your email to access and explore the dashboard.
+- **Answer** questions related to business performance and realization.
+- **Submit** your responses to store data and view results.
+- **Navigate** through interactive dashboard sections like Business Performance and Benefits Realization.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) for details.
 
 ## Authors
 

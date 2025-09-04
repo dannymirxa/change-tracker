@@ -26,5 +26,26 @@
     "Moderate": 3,
     "Bad": 2,
     "Not at all": 1
+  },
+  "5": {
+    "Worse now": 0,
+    "Slightly worse now": 1,
+    "Somewhat worse now": 2,
+    "Same": 3,
+    "Somewhat better now": 4,
+    "Moderately better now": 5,
+    "Much better now": 6,
+    "Better now": 7
+  }
+,
+  "6": {
+    "Not at all": 0,
+    "Very little": 1,
+    "Little": 2,
+    "Moderate": 3,
+    "Somewhat high": 4,
+    "High": 5,
+    "Very high": 6,
+    "Considerable": 7
   }
 }

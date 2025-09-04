@@ -23,8 +23,8 @@ def list_to_dict(data: list) -> dict:
 def figure(
     title: str,
     data: dict,
-    wrap_width: int = 18,
-    bargap: float = 0.7,
+    wrap_width: int = 30,
+    bargap: float = 0.8,
     bar_thickness: float = 0.1,
     left_margin: int = 220
 ):
@@ -56,9 +56,10 @@ def figure(
 
     # Layout sizing (height scales with number of bars)
     bar_px = 50
-    top_bottom_margin = 120
+    top_bottom_margin = 130
     n = len(df["Metric"])
     fig.update_layout(
+        minreducedheight = 400,
         height=top_bottom_margin + bar_px * n,
         bargap=bargap,            # controls distance between categories
         margin=dict(l=left_margin)
@@ -75,12 +76,12 @@ def figure(
             mode="markers",
             marker=dict(symbol="circle", size=10, color="rgba(0,0,0,1)"),
             showlegend=False,
-            hoverinfo="skip"
+            # hoverinfo="skip"
         )
     )
 
     # X-axis range
-    fig.update_xaxes(range=[0, 5])
+    fig.update_xaxes(range=[0, 7])
 
     # Wrap y-axis tick labels using <br>
     def wrap_label(s: str, width: int = 30) -> str:
