@@ -1,5 +1,5 @@
 from database_client import con
-from modules import dict_to_nested_dict, list_to_dict, figure
+from modules import dict_to_nested_dict, list_to_dict, figure_scale_by_value
 import streamlit as st
 from pages import (
     show_login_page,

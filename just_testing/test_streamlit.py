@@ -1,4 +1,4 @@
-from modules import dict_to_nested_dict, list_to_dict, figure
+from modules import dict_to_nested_dict, list_to_dict, figure_scale_by_value
 
 import streamlit as st
 import pandas as pd
@@ -111,20 +111,20 @@ drivers_question_data = dict_to_nested_dict(drivers_question_data)
 
 
 with st.expander("Business Performance"):
-    fig = figure(title="Business Performance", data={drivers_average_score_data[0][0]: drivers_average_score_data[0][1]})
+    fig = figure_scale_by_value(title="Business Performance", data={drivers_average_score_data[0][0]: drivers_average_score_data[0][1]})
     st.write("Click to view detailed metrics.")
     st.plotly_chart(fig, key="parent_Business_Performance")
     with st.expander("Business Performance"):
-        fig = figure(title="Business Performance", data=list_to_dict(drivers_question_data['Business Performance']))
+        fig = figure_scale_by_value(title="Business Performance", data=list_to_dict(drivers_question_data['Business Performance']))
         st.write("Click to view detailed metrics.")
         st.plotly_chart(fig, key="child_Business_Performance")
 
 with st.expander("Benefits Realization"):
-    fig = figure(title="Benefits Realization", data={drivers_average_score_data[1][0]: drivers_average_score_data[1][1]})
+    fig = figure_scale_by_value(title="Benefits Realization", data={drivers_average_score_data[1][0]: drivers_average_score_data[1][1]})
     st.write("Click to view detailed metrics.")
     st.plotly_chart(fig, key="parent_Benefits_Realization")
     with st.expander("Business Performance"):
-        fig = figure(title="Business Performance", data=list_to_dict(drivers_question_data['Benefits Realization']))
+        fig = figure_scale_by_value(title="Business Performance", data=list_to_dict(drivers_question_data['Benefits Realization']))
         st.write("Click to view detailed metrics.")
         st.plotly_chart(fig, key="child_Benefits_Realization")
 

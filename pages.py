@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import json
 from database_client import con
-from modules import dict_to_nested_dict, list_to_dict, figure
+from modules import dict_to_nested_dict, list_to_dict, figure_scale_by_value
 
 with open("map_answers_to_scores.json", "r") as json_file:
     answers_to_scores_map = json.load(json_file)
@@ -324,38 +324,42 @@ def show_results_page():
     
     st.title("Change Tracker Dashboard")
 
-    with st.expander("Accountability"):
-        fig = figure(title="Accountability", data={drivers_average_score_data[0][0]: drivers_average_score_data[0][1]})
+    driver = "Accountability"
+    with st.expander(driver):
+        fig = figure_scale_by_value(title=driver, data={drivers_average_score_data[0][0]: drivers_average_score_data[0][1]})
         st.write("Click to view detailed metrics.")
         st.plotly_chart(fig, key="parent_Accountability")
-        with st.expander("Accountability Drivers"):
-            fig = figure(title="Accountability", data=list_to_dict(drivers_question_data['Accountability']))
+        with st.expander(f"{driver} Drivers"):
+            fig = figure_scale_by_value(title=driver, data=list_to_dict(drivers_question_data[driver]))
             st.write("Click to view detailed metrics.")
-            st.plotly_chart(fig, key="child_Business_Performance")
+            st.plotly_chart(fig, key="child_Accountability")
 
-    with st.expander("Team Leadership"):
-        fig = figure(title="Team Leadership", data={drivers_average_score_data[1][0]: drivers_average_score_data[1][1]})
+    driver = "Team Leadership"
+    with st.expander(driver):
+        fig = figure_scale_by_value(title=driver, data={drivers_average_score_data[1][0]: drivers_average_score_data[1][1]})
         st.write("Click to view detailed metrics.")
         st.plotly_chart(fig, key="parent_Team_Leadership")
-        with st.expander("Team Leadership Drivers"):
-            fig = figure(title="Team Leadership", data=list_to_dict(drivers_question_data['Team Leadership']))
+        with st.expander(f"{driver} Drivers"):
+            fig = figure_scale_by_value(title="Team Leadership", data=list_to_dict(drivers_question_data[driver]))
             st.write("Click to view detailed metrics.")
             st.plotly_chart(fig, key="child_Team_Leadership")
 
-    with st.expander("Business Leadership"):
-        fig = figure(title="Business Leadership", data={drivers_average_score_data[1][0]: drivers_average_score_data[1][1]})
+    driver = "Business Leadership"
+    with st.expander(driver):
+        fig = figure_scale_by_value(title=driver, data={drivers_average_score_data[1][0]: drivers_average_score_data[1][1]})
         st.write("Click to view detailed metrics.")
         st.plotly_chart(fig, key="parent_Business_Leadership")
-        with st.expander("Business Leadership Drivers"):
-            fig = figure(title="Business Leadership", data=list_to_dict(drivers_question_data['Business Leadership']))
+        with st.expander(f"{driver} Drivers"):
+            fig = figure_scale_by_value(title=driver, data=list_to_dict(drivers_question_data[driver]))
             st.write("Click to view detailed metrics.")
             st.plotly_chart(fig, key="child_Business_Leadership")
 
-    with st.expander("Fear & Frustration"):
-        fig = figure(title="Fear & Frustration", data={drivers_average_score_data[1][0]: drivers_average_score_data[1][1]})
+    driver = "Fear & Frustration"
+    with st.expander(driver):
+        fig = figure_scale_by_value(title=driver, data={drivers_average_score_data[1][0]: drivers_average_score_data[1][1]})
         st.write("Click to view detailed metrics.")
         st.plotly_chart(fig, key="parent_Fear_and_Frustration")
-        with st.expander("Fear & Frustration Drivers"):
-            fig = figure(title="Fear & Frustration", data=list_to_dict(drivers_question_data['Fear & Frustration']))
+        with st.expander(f"{driver} Drivers"):
+            fig = figure_scale_by_value(title=driver, data=list_to_dict(drivers_question_data[driver]))
             st.write("Click to view detailed metrics.")
             st.plotly_chart(fig, key="child_Fear_and_Frustration")
