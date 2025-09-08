@@ -1,51 +1,47 @@
 {
   "1": {
-    "Very Effective": 5,
-    "Effective": 4,
-    "Neutral": 3,
-    "Ineffective": 2,
-    "Very Ineffective": 1
+    "Not at all": 1,
+    "Slightly": 2,
+    "Somewhat": 3,
+    "Moderate": 4,
+    "Above moderate": 5,
+    "High": 6,
+    "Very high": 7
   },
   "2": {
-    "Excellent": 5,
-    "Good": 4,
+    "Poor": 1,
+    "Fair": 2,
     "Average": 3,
-    "Below Average": 2,
-    "Poor": 1
+    "OK": 4,
+    "Good": 5,
+    "High": 6,
+    "Very high": 7
   },
   "3": {
-    "Very Efficient": 5,
-    "Efficient": 4,
-    "Neutral": 3,
-    "Inefficient": 2,
-    "Very Inefficient": 1
+    "Not at all": 1,
+    "Slightly": 2,
+    "Somewhat": 3,
+    "Moderate": 4,
+    "Above moderate": 5,
+    "High": 6,
+    "A high degree": 7
   },
   "4": {
-    "Considerable": 5,
-    "Good": 4,
-    "Moderate": 3,
-    "Bad": 2,
-    "Not at all": 1
+    "Poorly": 1,
+    "Fairly poorly": 2,
+    "Somewhat poorly": 3,
+    "OK": 4,
+    "Somewhat well": 5,
+    "Very well": 6,
+    "Extremely well": 7
   },
   "5": {
-    "Worse now": 0,
-    "Slightly worse now": 1,
-    "Somewhat worse now": 2,
-    "Same": 3,
-    "Somewhat better now": 4,
-    "Moderately better now": 5,
-    "Much better now": 6,
-    "Better now": 7
-  }
-,
-  "6": {
-    "Not at all": 0,
-    "Very little": 1,
-    "Little": 2,
-    "Moderate": 3,
-    "Somewhat high": 4,
-    "High": 5,
-    "Very high": 6,
-    "Considerable": 7
+    "No one": 1,
+    "A few people": 2,
+    "Several people": 3,
+    "Some people": 4,
+    "Many people": 5,
+    "Almost everyone": 6,
+    "Most people": 7
   }
 }

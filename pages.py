@@ -49,108 +49,204 @@ def show_questions():
     st.title("Questions")
 
     """
-    Business Performance
+    Accountability
     """
-    st.header("How have the following changed in the last 6 months?", divider=True)
+    st.header("Accountability", divider=True)
 
-    department_effectiveness = st.radio(
-        id_questions[11],
+    llb_role_clarity = st.radio(
+        id_questions[19],
+        tuple(answers_to_scores_map['1'].keys()),
+        horizontal=True
+    )
+    st.write(f"Your gave score: {map_answer_with_score(1, llb_role_clarity)}")
+    
+    llb_accountable = st.radio(
+        id_questions[20],
+        tuple(answers_to_scores_map['1'].keys()),
+        horizontal=True
+    )
+    st.write(f"Your gave score: {map_answer_with_score(1, llb_accountable)}")
+    
+    llb_objectives_outcomes = st.radio(
+        id_questions[21],
+        tuple(answers_to_scores_map['1'].keys()),
+        horizontal=True
+    )
+    st.write(f"Your gave score: {map_answer_with_score(1, llb_objectives_outcomes)}")
+
+    """
+    Team Leadership
+    """
+    st.header("Team Leadership", divider=True)
+
+    llb_leads_implementation = st.radio(
+        id_questions[22],
+        tuple(answers_to_scores_map['2'].keys()),
+        horizontal=True
+    )
+    st.write(f"Your gave score: {map_answer_with_score(2, llb_leads_implementation)}")
+
+    llb_performance_management = st.radio(
+        id_questions[23],
+        tuple(answers_to_scores_map['2'].keys()),
+        horizontal=True
+    )
+    st.write(f"Your gave score: {map_answer_with_score(2, llb_performance_management)}")
+
+    llb_talents_utilised = st.radio(
+        id_questions[24],
+        tuple(answers_to_scores_map['2'].keys()),
+        horizontal=True
+    )
+    st.write(f"Your gave score: {map_answer_with_score(2, llb_talents_utilised)}")
+
+    llb_conf_lv5_ldr = st.radio(
+        id_questions[25],
+        tuple(answers_to_scores_map['2'].keys()),
+        horizontal=True
+    )
+    st.write(f"Your gave score: {map_answer_with_score(2, llb_conf_lv5_ldr)}")
+
+    llb_recognised_rewarded = st.radio(
+        id_questions[26],
+        tuple(answers_to_scores_map['2'].keys()),
+        horizontal=True
+    )
+    st.write(f"Your gave score: {map_answer_with_score(2, llb_recognised_rewarded)}")
+
+    """
+    Business Leadership
+    """
+    st.header("Business Leadership", divider=True)
+
+    enb_ldr_support_system = st.radio(
+        id_questions[27],
+        tuple(answers_to_scores_map['3'].keys()),
+        horizontal=True
+    )
+    st.write(f"Your gave score: {map_answer_with_score(3, enb_ldr_support_system)}")
+
+    enb_ldr_time_resources = st.radio(
+        id_questions[28],
+        tuple(answers_to_scores_map['3'].keys()),
+        horizontal=True
+    )
+    st.write(f"Your gave score: {map_answer_with_score(3, enb_ldr_time_resources)}")
+
+    enb_conf_lv2_ldr = st.radio(
+        id_questions[29],
+        tuple(answers_to_scores_map['1'].keys()),
+        horizontal=True
+    )
+    st.write(f"Your gave score: {map_answer_with_score(1, enb_conf_lv2_ldr)}")
+
+    sfb_current_change_mgmt = st.radio(
+        id_questions[30],
+        tuple(answers_to_scores_map['4'].keys()),
+        horizontal=True
+    )
+    st.write(f"Your gave score: {map_answer_with_score(4, sfb_current_change_mgmt)}")
+
+    rsb_quick_remedial = st.radio(
+        id_questions[31],
+        tuple(answers_to_scores_map['3'].keys()),
+        horizontal=True
+    )
+    st.write(f"Your gave score: {map_answer_with_score(3, rsb_quick_remedial)}")
+
+    """
+    Fear and Frustration
+    """
+    st.header("Fear and Frustration", divider=True)
+
+    eeb_fear = st.radio(
+        id_questions[32],
         tuple(answers_to_scores_map['5'].keys()),
         horizontal=True
     )
-    st.write(f"Your gave score: {map_answer_with_score(5, department_effectiveness)}")
+    st.write(f"Your gave score: {map_answer_with_score(5, eeb_fear)}")
 
-    service_level = st.radio(
-        id_questions[12],
+    eeb_distress = st.radio(
+        id_questions[33],
         tuple(answers_to_scores_map['5'].keys()),
         horizontal=True
     )
+    st.write(f"Your gave score: {map_answer_with_score(5, eeb_distress)}")
 
-    st.write(f"Your gave score: {map_answer_with_score(5, service_level)}")
-
-    managing_costs = st.radio(
-        id_questions[13],
+    eeb_anger = st.radio(
+        id_questions[34],
         tuple(answers_to_scores_map['5'].keys()),
         horizontal=True
     )
-
-    st.write(f"Your gave score: {map_answer_with_score(5, managing_costs)}")
-
-    """
-    Business Realization
-    """
-    st.header("Where do you see that most benefits will be delivered from ERP 2.0?", divider=True)
-
-    team_alignment = st.radio(
-        id_questions[14],
-        tuple(answers_to_scores_map['6'].keys()),
-        horizontal=True
-    )
-    st.write(f"Your gave score: {map_answer_with_score(6, team_alignment)}")
-
-    time_savings = st.radio(
-        id_questions[15],
-        tuple(answers_to_scores_map['6'].keys()),
-        horizontal=True
-    )
-    st.write(f"Your gave score: {map_answer_with_score(6, time_savings)}")
-
-    employee_experience = st.radio(
-        id_questions[16],
-        tuple(answers_to_scores_map['6'].keys()),
-        horizontal=True
-    )
-    st.write(f"Your gave score: {map_answer_with_score(6, employee_experience)}")
-
-    scalable_workforce = st.radio(
-        id_questions[17],
-        tuple(answers_to_scores_map['6'].keys()),
-        horizontal=True
-    )
-    st.write(f"Your gave score: {map_answer_with_score(6, scalable_workforce)}")
-
-    confidence_on_performance = st.radio(
-        id_questions[18],
-        tuple(answers_to_scores_map['6'].keys()),
-        horizontal=True
-    )
-    st.write(f"Your gave score: {map_answer_with_score(6, confidence_on_performance)}")
+    st.write(f"Your gave score: {map_answer_with_score(5, eeb_anger)}")
 
     # Collect user answers into a dictionary
     answers = {
         'user_id': con.sql(f"SELECT id FROM users where username = '{st.session_state.get('username')}'").fetchall()[0][0] ,  # Assuming username can serve as user_id here
         'responses': [
             {
-                'question_id': questions_id[id_questions[11]],
-                'answer': int(map_answer_with_score(5, department_effectiveness))
+                'question_id': questions_id[id_questions[19]],
+                'answer': int(map_answer_with_score(1, llb_role_clarity))
             },
             {
-                'question_id': questions_id[id_questions[12]],
-                'answer': int(map_answer_with_score(5, service_level))
+                'question_id': questions_id[id_questions[20]],
+                'answer': int(map_answer_with_score(1, llb_accountable))
             },
             {
-                'question_id': questions_id[id_questions[13]],
-                'answer': int(map_answer_with_score(5, managing_costs))
+                'question_id': questions_id[id_questions[21]],
+                'answer': int(map_answer_with_score(1,  llb_objectives_outcomes))
             },
             {
-                'question_id': questions_id[id_questions[14]],
-                'answer': int(map_answer_with_score(6, team_alignment))
+                'question_id': questions_id[id_questions[22]],
+                'answer': int(map_answer_with_score(2, llb_leads_implementation))
             },
             {
-                'question_id': questions_id[id_questions[15]],
-                'answer': int(map_answer_with_score(6, time_savings))
+                'question_id': questions_id[id_questions[23]],
+                'answer': int(map_answer_with_score(2, llb_performance_management))
             },
             {
-                'question_id': questions_id[id_questions[16]],
-                'answer': int(map_answer_with_score(6, employee_experience))
+                'question_id': questions_id[id_questions[24]],
+                'answer': int(map_answer_with_score(2, llb_talents_utilised))
             },
             {
-                'question_id': questions_id[id_questions[17]],
-                'answer': int(map_answer_with_score(6, scalable_workforce))
+                'question_id': questions_id[id_questions[25]],
+                'answer': int(map_answer_with_score(2, llb_conf_lv5_ldr))
             },
             {
-                'question_id': questions_id[id_questions[18]],
-                'answer': int(map_answer_with_score(6, scalable_workforce))
+                'question_id': questions_id[id_questions[26]],
+                'answer': int(map_answer_with_score(2, llb_recognised_rewarded))
+            },
+            {
+                'question_id': questions_id[id_questions[27]],
+                'answer': int(map_answer_with_score(3, enb_ldr_support_system))
+            },
+            {
+                'question_id': questions_id[id_questions[28]],
+                'answer': int(map_answer_with_score(3, enb_ldr_time_resources))
+            },
+            {
+                'question_id': questions_id[id_questions[29]],
+                'answer': int(map_answer_with_score(1, enb_conf_lv2_ldr))
+            },
+            {
+                'question_id': questions_id[id_questions[20]],
+                'answer': int(map_answer_with_score(4, sfb_current_change_mgmt))
+            },
+            {
+                'question_id': questions_id[id_questions[31]],
+                'answer': int(map_answer_with_score(3, rsb_quick_remedial))
+            },
+            {
+                'question_id': questions_id[id_questions[32]],
+                'answer': int(map_answer_with_score(5, eeb_fear))
+            },
+            {
+                'question_id': questions_id[id_questions[33]],
+                'answer': int(map_answer_with_score(5, eeb_distress))
+            },
+            {
+                'question_id': questions_id[id_questions[34]],
+                'answer': int(map_answer_with_score(5, eeb_anger))
             }
         ]
     }
@@ -228,20 +324,38 @@ def show_results_page():
     
     st.title("Change Tracker Dashboard")
 
-    with st.expander("Business Performance"):
-        fig = figure(title="Business Performance", data={drivers_average_score_data[0][0]: drivers_average_score_data[0][1]})
+    with st.expander("Accountability"):
+        fig = figure(title="Accountability", data={drivers_average_score_data[0][0]: drivers_average_score_data[0][1]})
         st.write("Click to view detailed metrics.")
-        st.plotly_chart(fig, key="parent_Business_Performance")
-        with st.expander("Business Performance Drivers"):
-            fig = figure(title="Business Performance", data=list_to_dict(drivers_question_data['Business Performance']))
+        st.plotly_chart(fig, key="parent_Accountability")
+        with st.expander("Accountability Drivers"):
+            fig = figure(title="Accountability", data=list_to_dict(drivers_question_data['Accountability']))
             st.write("Click to view detailed metrics.")
             st.plotly_chart(fig, key="child_Business_Performance")
 
-    with st.expander("Benefits Realization"):
-        fig = figure(title="Benefits Realization", data={drivers_average_score_data[1][0]: drivers_average_score_data[1][1]})
+    with st.expander("Team Leadership"):
+        fig = figure(title="Team Leadership", data={drivers_average_score_data[1][0]: drivers_average_score_data[1][1]})
         st.write("Click to view detailed metrics.")
-        st.plotly_chart(fig, key="parent_Benefits_Realization")
-        with st.expander("Benefits Realization Drivers"):
-            fig = figure(title="Benefits Realization", data=list_to_dict(drivers_question_data['Benefits Realization']))
+        st.plotly_chart(fig, key="parent_Team_Leadership")
+        with st.expander("Team Leadership Drivers"):
+            fig = figure(title="Team Leadership", data=list_to_dict(drivers_question_data['Team Leadership']))
             st.write("Click to view detailed metrics.")
-            st.plotly_chart(fig, key="child_Benefits_Realization")
+            st.plotly_chart(fig, key="child_Team_Leadership")
+
+    with st.expander("Business Leadership"):
+        fig = figure(title="Business Leadership", data={drivers_average_score_data[1][0]: drivers_average_score_data[1][1]})
+        st.write("Click to view detailed metrics.")
+        st.plotly_chart(fig, key="parent_Business_Leadership")
+        with st.expander("Business Leadership Drivers"):
+            fig = figure(title="Business Leadership", data=list_to_dict(drivers_question_data['Business Leadership']))
+            st.write("Click to view detailed metrics.")
+            st.plotly_chart(fig, key="child_Business_Leadership")
+
+    with st.expander("Fear & Frustration"):
+        fig = figure(title="Fear & Frustration", data={drivers_average_score_data[1][0]: drivers_average_score_data[1][1]})
+        st.write("Click to view detailed metrics.")
+        st.plotly_chart(fig, key="parent_Fear_and_Frustration")
+        with st.expander("Fear & Frustration Drivers"):
+            fig = figure(title="Fear & Frustration", data=list_to_dict(drivers_question_data['Fear & Frustration']))
+            st.write("Click to view detailed metrics.")
+            st.plotly_chart(fig, key="child_Fear_and_Frustration")
