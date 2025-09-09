@@ -326,7 +326,7 @@ def show_results_page():
 
     driver = "Accountability"
     with st.expander(driver):
-        fig = figure_scale_by_value(title=driver, data={drivers_average_score_data[0][0]: drivers_average_score_data[0][1]})
+        fig = figure_scale_by_value(title=driver, data={driver: dict(drivers_average_score_data)[driver]})
         st.write("Click to view detailed metrics.")
         st.plotly_chart(fig, key="parent_Accountability")
         with st.expander(f"{driver} Drivers"):
@@ -336,7 +336,7 @@ def show_results_page():
 
     driver = "Team Leadership"
     with st.expander(driver):
-        fig = figure_scale_by_value(title=driver, data={drivers_average_score_data[1][0]: drivers_average_score_data[1][1]})
+        fig = figure_scale_by_value(title=driver, data={driver: dict(drivers_average_score_data)[driver]})
         st.write("Click to view detailed metrics.")
         st.plotly_chart(fig, key="parent_Team_Leadership")
         with st.expander(f"{driver} Drivers"):
@@ -346,7 +346,7 @@ def show_results_page():
 
     driver = "Business Leadership"
     with st.expander(driver):
-        fig = figure_scale_by_value(title=driver, data={drivers_average_score_data[1][0]: drivers_average_score_data[1][1]})
+        fig = figure_scale_by_value(title=driver, data={driver: dict(drivers_average_score_data)[driver]})
         st.write("Click to view detailed metrics.")
         st.plotly_chart(fig, key="parent_Business_Leadership")
         with st.expander(f"{driver} Drivers"):
@@ -356,7 +356,7 @@ def show_results_page():
 
     driver = "Fear & Frustration"
     with st.expander(driver):
-        fig = figure_scale_by_value(title=driver, data={drivers_average_score_data[1][0]: drivers_average_score_data[1][1]})
+        fig = figure_scale_by_value(title=driver, data={driver: dict(drivers_average_score_data)[driver]})
         st.write("Click to view detailed metrics.")
         st.plotly_chart(fig, key="parent_Fear_and_Frustration")
         with st.expander(f"{driver} Drivers"):

@@ -31,15 +31,18 @@ def show_result_page():
     drivers_average_score_data = con.sql(f"""                        
                           WITH latest_answers AS (
                                 SELECT
+                                --    u.id,
                                     q.id AS question_id,
                                     d.drivers_name,
-                                    CAST(a.answers AS INTEGER) AS answers
+                                    q.qcode,
+                                    CAST(a.answers AS INTEGER) AS answers,
+                                --    a.modified_time
                                 FROM answers a
                                 JOIN users u      ON u.id = a.user_id
                                 JOIN questions q  ON q.id = a.questions_id
                                 JOIN drivers d    ON d.id = q.drivers_id
                                 QUALIFY ROW_NUMBER() OVER (
-                                    PARTITION BY q.id
+                                    PARTITION BY u.id, q.id
                                     ORDER BY a.modified_time DESC, a.id DESC
                                 ) = 1
                             )
@@ -63,8 +66,8 @@ def show_result_page():
                                     JOIN questions q  ON q.id = a.questions_id
                                     JOIN drivers d    ON d.id = q.drivers_id
                                     QUALIFY ROW_NUMBER() OVER (
-                                    PARTITION BY q.id
-                                    ORDER BY a.modified_time DESC, a.id DESC
+                                        PARTITION BY u.id, q.id
+                                        ORDER BY a.modified_time DESC, a.id DESC
                                 ) = 1
                             )
                             SELECT
@@ -72,7 +75,8 @@ def show_result_page():
                                 qcode,
                                 ROUND((SUM(answers) * 1.0 / COUNT(question_id)) / 7 * 100, 2) AS average_answer_percentage
                             FROM latest_answers
-                            GROUP BY drivers_name, qcode ;
+                            GROUP BY drivers_name, qcode 
+                            ORDER BY drivers_name, qcode;
                             """
                             ).fetchall()
 

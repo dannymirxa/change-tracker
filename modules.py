@@ -81,7 +81,7 @@ def figure_scale_by_value(
     )
 
     # X-axis range
-    fig.update_xaxes(range=[0, 100])
+    fig.update_xaxes(range=[0, 7])
 
     # Wrap y-axis tick labels using <br>
     def wrap_label(s: str, width: int = 30) -> str:

@@ -1,0 +1,35 @@
+id,questions,drivers_id,qcode
+1,"Your Department's (i.e. Operations, Merchandising etc.) effectiveness",1,bpb|effectiveness
+2,The level of customer service (internal or external) your Team provides,1,bpb|customer_service
+3,Managing costs and resources in your Team,1,bpb|change_cost_management
+4,Increases in revenue,2,sfa|revenue_growth
+5,Reduced costs,2,sfa|auto_benefits_reduced_costs
+6,Improved customer shopping experience,2,sfa|customer_experience
+7,Better efficiency and productivity,2,sfa|benefits_improved_efficiency
+8,Greater team collaboration and communication,2,sfa|benefits_collaboration
+9,Better resource management,2,sfa|auto_benefits_better_resource_use
+10,How confident are you that the performance of your Department will improve because 7-Eleven's transformation has been implemented?,2,sfb|lv1_success
+11,Your team's effectiveness at getting work done,1,bpb|effectiveness
+12,"The level of service your team provides to internal/external customers (e.g. HR serves employees (internal customers), Finance serves vendors (external customers), Researchers support scientific findings)",1,bpb|customer_service
+13,Managing costs and resources in your organisation / team,1,bpb|change_cost_management
+14,"Team alignment between A*STAR and Research Entities on HR, FIN, Procurement and Scholarship processes",2,sfa|increased_alignment_business
+15,"Time savings through simplified HR, Finance, procurement, scholarship and employee-related functionalities and processes",2,sfa|auto_benefits_better_integration
+16,Improved employee experience through a digital front door,2,sfa|benefits_employee_exp
+17,"A scalable workforce with enhanced insights (e.g., spend, talent, supplier visibility) and data-driven decision-making capabilities",2,sfa|auto_benefits_better_data-driven_decisions
+18,How confident are you that the performance of your team will improve because ERP 2.0 has been implemented?,2,sfb|lv1_success
+19,How clear are your roles and responsibilities within your team?,3,llb|role_clarity
+20,How much are people in your team held accountable for achieving their objectives?,3,llb|accountable
+21,To what extent does your team have clear performance objectives and measurable outcomes?,3,llb|objectives_outcomes
+22,How would you rate the overall management capability of your direct supervisor in leading change implementation - building and mobilising people's commitment?,4,llb|leads_implementation
+23,How would you rate the overall management capability of your direct supervisor in coaching people to develop their potential?,4,llb|performance_management
+24,To what degree do you feel your talents and capabilities are being fully utilised?,4,llb|talents_utilised
+25,How confident and trusting are you in your direct supervisor's leadership?,4,llb|conf_lv5_ldr
+26,How recognised and rewarded do you feel for achieving results?,4,llb|recognised_rewarded
+27,"To what extent has your Leadership (e.g., DCEs, Group Directors, RI Executive Directors) actively demonstrated support and commitment for ERP 2.0?",5,enb|ldr_support_system
+28,"To what extent has your Leadership (e.g., DCEs, Group Directors, RI Executive Directors) provided the appropriate levels of time and resources needed to ensure ERP 2.0 is successful?",5,enb|ldr_time_resources
+29,How confident and trusting are you in your leadership?,5,enb|conf_lv2_ldr
+30,"How well does your Leadership (e.g., DCEs, Group Directors, RI Executive Directors) lead ERP 2.0?",5,sfb|current_change_mgmt
+31,"To what extent has your Leadership (e.g., DCEs, Group Directors, RI Executive Directors) addressed critical issues/problems related to ERP 2.0?",5,rsb|quick_remedial
+32,"TGenerally, what are people feeling within your team (also taking into account your own feelings)?",6,eeb|fear
+33,"Distress - e.g., people feel sad, hurting, helpless, in need",6,eeb|distress
+34,"Anger - e.g., people feel cynical, angry, bored, blaming",6,eeb|anger
