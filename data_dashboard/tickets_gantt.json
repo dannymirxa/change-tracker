@@ -1,0 +1,26 @@
+[
+    {
+        "Task": "Implement user authentication",
+        "Start": "2023-10-01",
+        "Finish": "2023-10-05",
+        "Assignee": "Dev Team"
+    },
+    {
+        "Task": "Design new dashboard UI",
+        "Start": "2023-10-03",
+        "Finish": "2023-10-10",
+        "Assignee": "UX Team"
+    },
+    {
+        "Task": "Database migration",
+        "Start": "2023-10-06",
+        "Finish": "2023-10-12",
+        "Assignee": "DBA Team"
+    },
+    {
+        "Task": "API performance optimization",
+        "Start": "2023-10-08",
+        "Finish": "2023-10-15",
+        "Assignee": "Dev Team"
+    }
+]

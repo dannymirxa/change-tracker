@@ -1,0 +1,5 @@
+[
+    {"name": "Appointment Scheduling", "type": "Survey", "responses": "16 Responses", "status": "Active"},
+    {"name": "Customer Satisfaction Survey", "type": "Survey", "responses": "2 Responses", "status": "Active"},
+    {"name": "Customer Dashboards", "type": "Dashboards", "responses": "15 Dashboards", "status": "Active"}
+]
