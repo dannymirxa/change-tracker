@@ -1,34 +1,9 @@
 import streamlit as st
-import pandas as pd
-import json
 from database_client import con
 from modules import dict_to_nested_dict, list_to_dict, figure_scale_by_value
 
-with open("map_answers_to_scores.json", "r") as json_file:
-    answers_to_scores_map = json.load(json_file)
 
-def map_answer_with_score(map_id: int, answer: str):
-    return str(answers_to_scores_map[str(map_id)][answer])
-
-def show_welcome_page():
-    st.session_state['surveys'] = "Employee Satisfaction Survey"
-    st.session_state['cycle'] = "Cycle 2"
-    surveys_date = con.sql(f"SELECT DATE(created_time) FROM surveys \
-                           WHERE name = '{st.session_state['surveys']}' AND cycle = '{st.session_state['cycle']}'\
-                           LIMIT 1" \
-                            ).fetchall()[0][0]
-    st.session_state['surveys_date'] = surveys_date
-    st.title(f"Welcome {st.session_state.get('username', 'User')} to {st.session_state['surveys']} {st.session_state['cycle']}")
-    # Add further logic or components specific to the welcome page here
-
-    if st.button("Go to Questionnaire", key="go_to_questionnaire"):
-        st.session_state['page'] = 'questions'
-
-id_questions= dict(con.sql("SELECT id, questions FROM questions;").fetchall())
-questions_id= dict(con.sql("SELECT questions, id FROM questions;").fetchall())
-
-
-def show_results_page():
+def show_results_latest_page():
     # Create a row with two columns
     col1, col2 = st.columns([9, 1])  # Adjust the ratio to push the button to the right
 
