@@ -5,11 +5,18 @@ from modules import dict_to_nested_dict, list_to_dict, figure_scale_by_value
 
 def show_results_latest_page():
     # Create a row with two columns
-    col1, col2 = st.columns([9, 1])  # Adjust the ratio to push the button to the right
+    # Give the right column more space so the buttons appear wider
+    col1, col2 = st.columns([6, 4])
 
     with col2:
-        if st.button("Back to Login", key="back_to_login"):
-            st.session_state['page'] = 'login'
+        # Split that wider column into two equal parts for two buttons
+        btn_col1, btn_col2 = st.columns([1, 1])
+        with btn_col1:
+            if st.button("Back to Login", key="back_to_login"):
+                st.session_state['page'] = 'login'
+        with btn_col2:
+            if st.button("Results Timeline", key="results_timeline"):
+                st.session_state['page'] = 'results_timeline'
 
 
     drivers_average_score_data = con.sql(f"""                        
@@ -64,38 +71,38 @@ def show_results_latest_page():
     with st.expander(driver):
         fig = figure_scale_by_value(title=driver, data={driver: dict(drivers_average_score_data)[driver]})
         st.write("Click to view detailed metrics.")
-        st.plotly_chart(fig, key="parent_Accountability")
+        st.plotly_chart(fig, key="parent_Accountability_latest")
         with st.expander(f"{driver} Drivers"):
             fig = figure_scale_by_value(title=driver, data=list_to_dict(drivers_question_data[driver]))
             st.write("Click to view detailed metrics.")
-            st.plotly_chart(fig, key="child_Accountability")
+            st.plotly_chart(fig, key="child_Accountability_latest")
 
     driver = "Team Leadership"
     with st.expander(driver):
         fig = figure_scale_by_value(title=driver, data={driver: dict(drivers_average_score_data)[driver]})
         st.write("Click to view detailed metrics.")
-        st.plotly_chart(fig, key="parent_Team_Leadership")
+        st.plotly_chart(fig, key="parent_Team_Leadership_latest")
         with st.expander(f"{driver} Drivers"):
             fig = figure_scale_by_value(title="Team Leadership", data=list_to_dict(drivers_question_data[driver]))
             st.write("Click to view detailed metrics.")
-            st.plotly_chart(fig, key="child_Team_Leadership")
+            st.plotly_chart(fig, key="child_Team_Leadership_latest")
 
     driver = "Business Leadership"
     with st.expander(driver):
         fig = figure_scale_by_value(title=driver, data={driver: dict(drivers_average_score_data)[driver]})
         st.write("Click to view detailed metrics.")
-        st.plotly_chart(fig, key="parent_Business_Leadership")
+        st.plotly_chart(fig, key="parent_Business_Leadership_latest")
         with st.expander(f"{driver} Drivers"):
             fig = figure_scale_by_value(title=driver, data=list_to_dict(drivers_question_data[driver]))
             st.write("Click to view detailed metrics.")
-            st.plotly_chart(fig, key="child_Business_Leadership")
+            st.plotly_chart(fig, key="child_Business_Leadership_latest")
 
     driver = "Fear & Frustration"
     with st.expander(driver):
         fig = figure_scale_by_value(title=driver, data={driver: dict(drivers_average_score_data)[driver]})
         st.write("Click to view detailed metrics.")
-        st.plotly_chart(fig, key="parent_Fear_and_Frustration")
+        st.plotly_chart(fig, key="parent_Fear_and_Frustration_latest")
         with st.expander(f"{driver} Drivers"):
             fig = figure_scale_by_value(title=driver, data=list_to_dict(drivers_question_data[driver]))
             st.write("Click to view detailed metrics.")
-            st.plotly_chart(fig, key="child_Fear_and_Frustration")
+            st.plotly_chart(fig, key="child_Fear_and_Frustration_latest")

@@ -259,8 +259,13 @@ def show_questions():
         st.dataframe(responses_df)
         # Insert data from DataFrame into the DuckDB answers table
         for index, row in responses_df.iterrows():
+            # Sanitize and coerce types to avoid DuckDB parameter errors (e.g. NaN or numpy types)
+            user_id = int(row['user_id'])
+            question_id = int(row['question_id'])
+            answer_val = int(row['answer']) if pd.notna(row['answer']) else None
+            comment_val = row['comment'] if (pd.notna(row.get('comment')) and row.get('comment') is not None) else ""
             con.execute(
                 "INSERT INTO answers (user_id, questions_id, answers, comments) VALUES (?, ?, ?, ?)",
-                (int(row['user_id']), int(row['question_id']), row['answer'], row['comment'])
+                (user_id, question_id, answer_val, comment_val)
             )
         st.success("Responses successfully inserted into the database.")

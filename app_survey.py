@@ -12,6 +12,7 @@ from pages.login import show_login_page
 from pages.welcome import show_welcome_page
 from pages.questions import show_questions
 from pages.result_latest import show_results_latest_page
+from pages.result_timeline import show_results_timeline_page
 
 st.set_page_config(page_title="Change Tracker Dashboard", layout="wide")
 # st.markdown(
@@ -88,5 +89,7 @@ def navigate_pages():
         show_questions()
     elif st.session_state['page'] == 'results_latest':
         show_results_latest_page()
+    elif st.session_state['page'] == 'results_timeline':
+        show_results_timeline_page()
 
 navigate_pages()
