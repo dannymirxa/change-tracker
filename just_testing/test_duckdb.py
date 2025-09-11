@@ -4,7 +4,7 @@ import duckdb
 con = duckdb.connect("change_tracker.db")
 
 
-id_questions= con.sql("SELECT id, questions FROM questions;").fetchall()
+surveys= con.sql("SELECT DATE(created_time) FROM surveys where name = 'Employee Satisfaction Survey';").fetchall()[0][0]
 # print(id_questions[1])
 
 # questions_id= dict(con.sql("SELECT questions, id FROM questions;").fetchall())
@@ -19,4 +19,4 @@ id_questions= con.sql("SELECT id, questions FROM questions;").fetchall()
 #                         AND d.drivers_name = 'Business Performance'
 #                         ;""").fetchall()
 
-print(id_questions)
+print(surveys)

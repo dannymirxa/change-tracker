@@ -35,8 +35,11 @@ def show_login_page():
             st.error(f"user {email} does not exist")
 
 def show_welcome_page():
+    st.session_state['surveys'] = "Employee Satisfaction Survey"
+    surveys_date = con.sql(f"SELECT DATE(created_time) FROM surveys WHERE name = '{st.session_state['surveys']}' LIMIT 1").fetchall()[0][0]
     username = st.session_state.get('username', 'User')
-    st.title(f"Welcome {username}")
+    st.session_state['surveys_date'] = surveys_date
+    st.title(f"Welcome {username} to {st.session_state['surveys']}")
     # Add further logic or components specific to the welcome page here
 
     if st.button("Go to Questionnaire", key="go_to_questionnaire"):
@@ -59,19 +62,15 @@ def show_questions():
         horizontal=True
     )
     st.write(f"Your gave score: {map_answer_with_score(1, llb_role_clarity)}")
-    
-    # Add a text area for user comments
-    llb_role_clarity_comment = st.text_area("Comments:", key="role_clarity_comment")
-    
+    llb_role_clarity_comment = st.text_area("Comments for the questions above:", height=30, key="llb_role_clarity_comment")
+
     llb_accountable = st.radio(
         id_questions[20],
         tuple(answers_to_scores_map['1'].keys()),
         horizontal=True
     )
     st.write(f"Your gave score: {map_answer_with_score(1, llb_accountable)}")
-    
-    # Add a text area for user comments
-    llb_accountable_comment = st.text_area("Comments:", key="accountable_comment")
+    llb_accountable_comment = st.text_area("Comments for the questions above:", height=30, key="llb_accountable_comment")
     
     llb_objectives_outcomes = st.radio(
         id_questions[21],
@@ -79,9 +78,7 @@ def show_questions():
         horizontal=True
     )
     st.write(f"Your gave score: {map_answer_with_score(1, llb_objectives_outcomes)}")
-    
-    # Add a text area for user comments
-    llb_objectives_outcomes_comment = st.text_area("Comments:", key="objectives_outcomes_comment")
+    llb_objectives_outcomes_comment = st.text_area("Comments for the questions above:", height=30, key="llb_objectives_outcomes_comment")
 
     """
     Team Leadership
@@ -94,6 +91,7 @@ def show_questions():
         horizontal=True
     )
     st.write(f"Your gave score: {map_answer_with_score(2, llb_leads_implementation)}")
+    llb_leads_implementation_comment = st.text_area("Comments for the questions above:", height=30, key="llb_leads_implementation_comment")
 
     llb_performance_management = st.radio(
         id_questions[23],
@@ -101,6 +99,7 @@ def show_questions():
         horizontal=True
     )
     st.write(f"Your gave score: {map_answer_with_score(2, llb_performance_management)}")
+    llb_performance_management_comment = st.text_area("Comments for the questions above:", height=30, key="llb_performance_management_comment")
 
     llb_talents_utilised = st.radio(
         id_questions[24],
@@ -108,6 +107,7 @@ def show_questions():
         horizontal=True
     )
     st.write(f"Your gave score: {map_answer_with_score(2, llb_talents_utilised)}")
+    llb_talents_utilised_comment = st.text_area("Comments for the questions above:", height=30, key="llb_talents_utilised_comment")
 
     llb_conf_lv5_ldr = st.radio(
         id_questions[25],
@@ -115,6 +115,7 @@ def show_questions():
         horizontal=True
     )
     st.write(f"Your gave score: {map_answer_with_score(2, llb_conf_lv5_ldr)}")
+    llb_conf_lv5_ldr_comment = st.text_area("Comments for the questions above:", height=30, key="llb_conf_lv5_ldr_comment")
 
     llb_recognised_rewarded = st.radio(
         id_questions[26],
@@ -122,6 +123,7 @@ def show_questions():
         horizontal=True
     )
     st.write(f"Your gave score: {map_answer_with_score(2, llb_recognised_rewarded)}")
+    llb_recognised_rewarded_comment = st.text_area("Comments for the questions above:", height=30, key="llb_recognised_rewarded_comment")
 
     """
     Business Leadership
@@ -134,6 +136,7 @@ def show_questions():
         horizontal=True
     )
     st.write(f"Your gave score: {map_answer_with_score(3, enb_ldr_support_system)}")
+    enb_ldr_support_system_comment = st.text_area("Comments for the questions above:", height=30, key="enb_ldr_support_system_comment")
 
     enb_ldr_time_resources = st.radio(
         id_questions[28],
@@ -141,6 +144,7 @@ def show_questions():
         horizontal=True
     )
     st.write(f"Your gave score: {map_answer_with_score(3, enb_ldr_time_resources)}")
+    enb_ldr_time_resources_comment = st.text_area("Comments for the questions above:", height=30, key="enb_ldr_time_resources_comment")
 
     enb_conf_lv2_ldr = st.radio(
         id_questions[29],
@@ -148,6 +152,7 @@ def show_questions():
         horizontal=True
     )
     st.write(f"Your gave score: {map_answer_with_score(1, enb_conf_lv2_ldr)}")
+    enb_conf_lv2_ldr_comment = st.text_area("Comments for the questions above:", height=30, key="enb_conf_lv2_ldr_comment")
 
     sfb_current_change_mgmt = st.radio(
         id_questions[30],
@@ -155,6 +160,7 @@ def show_questions():
         horizontal=True
     )
     st.write(f"Your gave score: {map_answer_with_score(4, sfb_current_change_mgmt)}")
+    sfb_current_change_mgmt_comment = st.text_area("Comments for the questions above:", height=30, key="sfb_current_change_mgmt_comment")
 
     rsb_quick_remedial = st.radio(
         id_questions[31],
@@ -162,6 +168,7 @@ def show_questions():
         horizontal=True
     )
     st.write(f"Your gave score: {map_answer_with_score(3, rsb_quick_remedial)}")
+    rsb_quick_remedial_comment = st.text_area("Comments for the questions above:", height=30, key="rsb_quick_remedial_comment")
 
     """
     Fear and Frustration
@@ -174,6 +181,7 @@ def show_questions():
         horizontal=True
     )
     st.write(f"Your gave score: {map_answer_with_score(5, eeb_fear)}")
+    eeb_fear_comment = st.text_area("Comments for the questions above:", height=30, key="eeb_fear_comment")
 
     eeb_distress = st.radio(
         id_questions[33],
@@ -181,6 +189,7 @@ def show_questions():
         horizontal=True
     )
     st.write(f"Your gave score: {map_answer_with_score(5, eeb_distress)}")
+    eeb_distress_comment = st.text_area("Comments for the questions above:", height=30, key="eeb_distress_comment")
 
     eeb_anger = st.radio(
         id_questions[34],
@@ -188,6 +197,7 @@ def show_questions():
         horizontal=True
     )
     st.write(f"Your gave score: {map_answer_with_score(5, eeb_anger)}")
+    eeb_anger_comment = st.text_area("Comments for the questions above:", height=30, key="eeb_anger_comment")
 
     # Collect user answers into a dictionary
     answers = {
@@ -195,67 +205,83 @@ def show_questions():
         'responses': [
             {
                 'question_id': questions_id[id_questions[19]],
-                'answer': int(map_answer_with_score(1, llb_role_clarity))
+                'answer': int(map_answer_with_score(1, llb_role_clarity)),
+                'comment': llb_role_clarity_comment
             },
             {
                 'question_id': questions_id[id_questions[20]],
-                'answer': int(map_answer_with_score(1, llb_accountable))
+                'answer': int(map_answer_with_score(1, llb_accountable)),
+                'comment': llb_accountable_comment
             },
             {
                 'question_id': questions_id[id_questions[21]],
-                'answer': int(map_answer_with_score(1,  llb_objectives_outcomes))
+                'answer': int(map_answer_with_score(1,  llb_objectives_outcomes)),
+                'comment': llb_objectives_outcomes_comment
             },
             {
                 'question_id': questions_id[id_questions[22]],
-                'answer': int(map_answer_with_score(2, llb_leads_implementation))
+                'answer': int(map_answer_with_score(2, llb_leads_implementation)),
+                'comment': llb_leads_implementation_comment
             },
             {
                 'question_id': questions_id[id_questions[23]],
-                'answer': int(map_answer_with_score(2, llb_performance_management))
+                'answer': int(map_answer_with_score(2, llb_performance_management)),
+                'comment': llb_performance_management_comment
             },
             {
                 'question_id': questions_id[id_questions[24]],
-                'answer': int(map_answer_with_score(2, llb_talents_utilised))
+                'answer': int(map_answer_with_score(2, llb_talents_utilised)),
+                'comment': llb_talents_utilised_comment
             },
             {
                 'question_id': questions_id[id_questions[25]],
-                'answer': int(map_answer_with_score(2, llb_conf_lv5_ldr))
+                'answer': int(map_answer_with_score(2, llb_conf_lv5_ldr)),
+                'comment': llb_conf_lv5_ldr_comment
             },
             {
                 'question_id': questions_id[id_questions[26]],
-                'answer': int(map_answer_with_score(2, llb_recognised_rewarded))
+                'answer': int(map_answer_with_score(2, llb_recognised_rewarded)),
+                'comment': llb_recognised_rewarded_comment
             },
             {
                 'question_id': questions_id[id_questions[27]],
-                'answer': int(map_answer_with_score(3, enb_ldr_support_system))
+                'answer': int(map_answer_with_score(3, enb_ldr_support_system)),
+                'comment': enb_ldr_support_system_comment
             },
             {
                 'question_id': questions_id[id_questions[28]],
-                'answer': int(map_answer_with_score(3, enb_ldr_time_resources))
+                'answer': int(map_answer_with_score(3, enb_ldr_time_resources)),
+                'comment': enb_ldr_time_resources_comment
             },
             {
                 'question_id': questions_id[id_questions[29]],
-                'answer': int(map_answer_with_score(1, enb_conf_lv2_ldr))
+                'answer': int(map_answer_with_score(1, enb_conf_lv2_ldr)),
+                'comment': enb_conf_lv2_ldr_comment
             },
             {
                 'question_id': questions_id[id_questions[20]],
-                'answer': int(map_answer_with_score(4, sfb_current_change_mgmt))
+                'answer': int(map_answer_with_score(4, sfb_current_change_mgmt)),
+                'comment': sfb_current_change_mgmt_comment
             },
             {
                 'question_id': questions_id[id_questions[31]],
-                'answer': int(map_answer_with_score(3, rsb_quick_remedial))
+                'answer': int(map_answer_with_score(3, rsb_quick_remedial)),
+                'comment': rsb_quick_remedial_comment
             },
             {
                 'question_id': questions_id[id_questions[32]],
-                'answer': int(map_answer_with_score(5, eeb_fear))
+                'answer': int(map_answer_with_score(5, eeb_fear)),
+                'comment': eeb_fear_comment
             },
             {
                 'question_id': questions_id[id_questions[33]],
-                'answer': int(map_answer_with_score(5, eeb_distress))
+                'answer': int(map_answer_with_score(5, eeb_distress)),
+                'comment': eeb_distress_comment
             },
             {
                 'question_id': questions_id[id_questions[34]],
-                'answer': int(map_answer_with_score(5, eeb_anger))
+                'answer': int(map_answer_with_score(5, eeb_anger)),
+                'comment': eeb_anger_comment
             }
         ]
     }
@@ -270,13 +296,12 @@ def show_questions():
         # Insert data from DataFrame into the DuckDB answers table
         for index, row in responses_df.iterrows():
             con.execute(
-                "INSERT INTO answers (user_id, questions_id, answers) VALUES (?, ?, ?)",
-                (int(row['user_id']), int(row['question_id']), row['answer'])
+                "INSERT INTO answers (user_id, questions_id, answers, comments) VALUES (?, ?, ?, ?)",
+                (int(row['user_id']), int(row['question_id']), row['answer'], row['comment'])
             )
         st.success("Responses successfully inserted into the database.")
 
 def show_results_page():
-    
     # Create a row with two columns
     col1, col2 = st.columns([9, 1])  # Adjust the ratio to push the button to the right
 
@@ -331,7 +356,7 @@ def show_results_page():
 
     drivers_question_data = dict_to_nested_dict(drivers_question_data)
     
-    st.title("Change Tracker Dashboard")
+    st.title(f"Change Tracker Dashboard for {st.session_state['username']} on {st.session_state['surveys_date']}")
 
     driver = "Accountability"
     with st.expander(driver):
