@@ -1,7 +1,7 @@
 from database_client import con
 from modules import dict_to_nested_dict, list_to_dict, figure_scale_by_value
 import streamlit as st
-from pages import (
+from pages_survey import (
     show_login_page,
     show_welcome_page,
     show_questions,
@@ -24,7 +24,10 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# Control page navigation
+# Ensure the session state is initialized
+if 'page' not in st.session_state:
+    st.session_state['page'] = 'login'
+
 def navigate_pages():
     if st.session_state['page'] == 'login':
         show_login_page()

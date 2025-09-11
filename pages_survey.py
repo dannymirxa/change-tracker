@@ -60,6 +60,9 @@ def show_questions():
     )
     st.write(f"Your gave score: {map_answer_with_score(1, llb_role_clarity)}")
     
+    # Add a text area for user comments
+    llb_role_clarity_comment = st.text_area("Comments:", key="role_clarity_comment")
+    
     llb_accountable = st.radio(
         id_questions[20],
         tuple(answers_to_scores_map['1'].keys()),
@@ -67,12 +70,18 @@ def show_questions():
     )
     st.write(f"Your gave score: {map_answer_with_score(1, llb_accountable)}")
     
+    # Add a text area for user comments
+    llb_accountable_comment = st.text_area("Comments:", key="accountable_comment")
+    
     llb_objectives_outcomes = st.radio(
         id_questions[21],
         tuple(answers_to_scores_map['1'].keys()),
         horizontal=True
     )
     st.write(f"Your gave score: {map_answer_with_score(1, llb_objectives_outcomes)}")
+    
+    # Add a text area for user comments
+    llb_objectives_outcomes_comment = st.text_area("Comments:", key="objectives_outcomes_comment")
 
     """
     Team Leadership
