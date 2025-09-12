@@ -229,13 +229,13 @@ def figure_line_by_cycle(
     line_width: int = 2
 ):
     """
-    Build a line chart where Y axis is 'cycle' and X axis is 'answer'.
-
+    Build a line chart where X axis is 'cycle' and Y axis is 'answer'.
+    
     Args:
         title: Figure title.
         data: List[dict] with items like {'cycle': int, 'answer': number}.
-        wrap_width: Characters per line for y-axis label wrapping (used if cycles are strings).
-        left_margin: Left margin in px to prevent clipping of y-axis labels.
+        wrap_width: Characters per line for x-axis label wrapping (used if cycles are strings).
+        left_margin: Left margin in px to prevent clipping of x-axis labels.
         marker_size: Size of the markers on the line.
         line_width: Width of the connecting line.
     """
@@ -256,8 +256,8 @@ def figure_line_by_cycle(
     # Build line chart: X = answer, Y = cycle
     fig = px.line(
         df,
-        x="answer",
-        y="cycle",
+        x="cycle",
+        y="answer",
         title=title,
         markers=True
     )
@@ -280,11 +280,11 @@ def figure_line_by_cycle(
     # If cycles are strings (long labels) wrap them
     def wrap_label(s: str, width: int = 30) -> str:
         return "<br>".join(textwrap.wrap(str(s), width=width)) if isinstance(s, (str, int)) else s
-
-    # Prepare tick labels for y axis (preserve original ordering)
+    
+    # Prepare tick labels for x axis (preserve original ordering)
     cycle_vals = list(dict.fromkeys(df["cycle"].tolist()))
     wrapped_ticktext = [wrap_label(m, width=wrap_width) for m in cycle_vals]
-    fig.update_yaxes(
+    fig.update_xaxes(
         tickmode="array",
         tickvals=cycle_vals,
         ticktext=wrapped_ticktext,
