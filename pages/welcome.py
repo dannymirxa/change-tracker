@@ -3,7 +3,7 @@ from database_client import con
 
 def show_welcome_page():
     st.session_state['surveys'] = "Employee Satisfaction Survey"
-    st.session_state['cycle'] = "Cycle 2"
+    st.session_state['cycle'] = "Cycle 3"
     surveys_date = con.sql(f"SELECT DATE(created_time) FROM surveys \
                            WHERE name = '{st.session_state['surveys']}' AND cycle = '{st.session_state['cycle']}'\
                            LIMIT 1" \

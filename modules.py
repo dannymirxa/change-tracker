@@ -327,8 +327,8 @@ def figure_line_by_cycle_by_driver(
                 'llb|accountable': [{'cycle':1,'answer':1}, {'cycle':2,'answer':6}],
                 ...
               }
-        wrap_width: Characters per line for y-axis label wrapping (used if cycles are strings).
-        left_margin: Left margin in px to prevent clipping of y-axis labels.
+        wrap_width: Characters per line for x-axis label wrapping (used if cycles are strings).
+        left_margin: Left margin in px to prevent clipping of x-axis labels.
         marker_size: Size of the markers on each line.
         line_width: Width of the connecting lines.
     """
@@ -371,11 +371,11 @@ def figure_line_by_cycle_by_driver(
     except Exception:
         df = df.sort_values(["driver", "cycle"])
 
-    # Build line chart: X = answer, Y = cycle, color = driver (one line per driver)
+    # Build line chart: X = cycle, Y = answer, color = driver (one line per driver)
     fig = px.line(
         df,
-        x="answer",
-        y="cycle",
+        x="cycle",
+        y="answer",
         color="driver",
         title=title,
         markers=True,
@@ -386,22 +386,23 @@ def figure_line_by_cycle_by_driver(
     fig.update_traces(marker=dict(size=marker_size))
     fig.update_traces(line=dict(width=line_width))
 
-    # Layout sizing (height scales with number of unique cycles)
+    # Layout sizing (width/height consider number of unique cycles for x-axis labels)
     bar_px = 70
     top_bottom_margin = 200
     n = len(unique_cycles)
+    # Keep height but allow room for x-axis labels by increasing bottom margin if needed
     fig.update_layout(
         minreducedheight=400,
         height=top_bottom_margin + bar_px * max(1, n),
-        margin=dict(l=left_margin)
+        margin=dict(l=left_margin, b=80)
     )
 
-    # Wrap y-axis tick labels if they are long strings
+    # Wrap x-axis tick labels if they are long strings (cycles shown on x axis now)
     def wrap_label(s: str, width: int = 30) -> str:
         return "<br>".join(textwrap.wrap(str(s), width=width)) if isinstance(s, (str, int)) else s
 
     wrapped_ticktext = [wrap_label(m, width=wrap_width) for m in unique_cycles]
-    fig.update_yaxes(
+    fig.update_xaxes(
         tickmode="array",
         tickvals=unique_cycles,
         ticktext=wrapped_ticktext,
@@ -410,13 +411,13 @@ def figure_line_by_cycle_by_driver(
         categoryarray=unique_cycles
     )
 
-    # Provide some padding on x axis depending on data range
+    # Provide some padding on y axis depending on data range
     try:
-        xmin = float(df["answer"].min())
-        xmax = float(df["answer"].max())
-        span = xmax - xmin
+        ymin = float(df["answer"].min())
+        ymax = float(df["answer"].max())
+        span = ymax - ymin
         pad = max(0.1 * span, 1) if span != 0 else 1
-        fig.update_xaxes(range=[xmin - pad, xmax + pad])
+        fig.update_yaxes(range=[ymin - pad, ymax + pad])
     except Exception:
         # If conversion fails, leave axis autoscaling
         pass

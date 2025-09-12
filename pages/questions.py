@@ -252,7 +252,6 @@ def show_questions():
 
     # Show Button to Save Answers
     if st.button("Submit Answers", key="submit_answers"):
-        st.session_state['page'] = 'results_latest'
         # Convert JSON to pandas DataFrame and display
         responses_df = pd.json_normalize(answers, record_path='responses', meta='user_id')
         st.write("Answers DataFrame ready for insertion:")
@@ -269,3 +268,6 @@ def show_questions():
                 (user_id, question_id, answer_val, comment_val)
             )
         st.success("Responses successfully inserted into the database.")
+        # Navigate to results page only after inserts are complete, then rerun so the results page reads fresh data
+        st.session_state['page'] = 'results_latest'
+        st.rerun()
