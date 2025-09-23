@@ -1,6 +1,7 @@
 # Initialize session state
 import streamlit as st
-from database_client import con
+# from database_client import con
+from module.supabase_client import supabase
 
 if 'page' not in st.session_state:
     st.session_state['page'] = 'login'
@@ -14,7 +15,8 @@ def show_login_page():
     # A button to submit the login
     if st.button("Submit", key="login_submit"):
         try:
-            username = con.sql(f"SELECT username FROM users WHERE email = '{email}' LIMIT 1").fetchall()[0][0]
+            response = supabase.table('users').select('username').eq('email', 'john.doe@example.com').limit(1).execute()
+            username = response.data[0]['username']
             if username:
                 st.session_state['page'] = 'welcome'
                 st.session_state['username'] = username
