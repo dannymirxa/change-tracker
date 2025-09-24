@@ -33,3 +33,69 @@ id,questions,surveys_id,drivers_id,qcode
 32,"TGenerally, what are people feeling within your team (also taking into account your own feelings)?",2,6,eeb|fear
 33,"Distress - e.g., people feel sad, hurting, helpless, in need",2,6,eeb|distress
 34,"Anger - e.g., people feel cynical, angry, bored, blaming",2,6,eeb|anger
+35,How clear are your roles and responsibilities within your team?,3,3,llb|role_clarity
+36,How much are people in your team held accountable for achieving their objectives?,3,3,llb|accountable
+37,To what extent does your team have clear performance objectives and measurable outcomes?,3,3,llb|objectives_outcomes
+38,How would you rate the overall management capability of your direct supervisor in leading change implementation - building and mobilising people's commitment?,3,4,llb|leads_implementation
+39,How would you rate the overall management capability of your direct supervisor in coaching people to develop their potential?,3,4,llb|performance_management
+40,To what degree do you feel your talents and capabilities are being fully utilised?,3,4,llb|talents_utilised
+41,How confident and trusting are you in your direct supervisor's leadership?,3,4,llb|conf_lv5_ldr
+42,How recognised and rewarded do you feel for achieving results?,3,4,llb|recognised_rewarded
+43,"To what extent has your Leadership (e.g., DCEs, Group Directors, RI Executive Directors) actively demonstrated support and commitment for ERP 2.0?",3,5,enb|ldr_support_system
+44,"To what extent has your Leadership (e.g., DCEs, Group Directors, RI Executive Directors) provided the appropriate levels of time and resources needed to ensure ERP 2.0 is successful?",3,5,enb|ldr_time_resources
+45,How confident and trusting are you in your leadership?,3,5,enb|conf_lv2_ldr
+46,"How well does your Leadership (e.g., DCEs, Group Directors, RI Executive Directors) lead ERP 2.0?",3,5,sfb|current_change_mgmt
+47,"To what extent has your Leadership (e.g., DCEs, Group Directors, RI Executive Directors) addressed critical issues/problems related to ERP 2.0?",3,5,rsb|quick_remedial
+48,"TGenerally, what are people feeling within your team (also taking into account your own feelings)?",3,6,eeb|fear
+49,"Distress - e.g., people feel sad, hurting, helpless, in need",3,6,eeb|distress
+50,"Anger - e.g., people feel cynical, angry, bored, blaming",3,6,eeb|anger
+51,"Your Department's (i.e. Operations, Merchandising etc.) effectiveness",4,1,bpb|effectiveness
+52,The level of customer service (internal or external) your Team provides,4,1,bpb|customer_service
+53,Managing costs and resources in your Team,4,1,bpb|change_cost_management
+54,Increases in revenue,4,2,sfa|revenue_growth
+55,Reduced costs,4,2,sfa|auto_benefits_reduced_costs
+56,Improved customer shopping experience,4,2,sfa|customer_experience
+57,Better efficiency and productivity,4,2,sfa|benefits_improved_efficiency
+58,Greater team collaboration and communication,4,2,sfa|benefits_collaboration
+59,Better resource management,4,2,sfa|auto_benefits_better_resource_use
+60,How confident are you that the performance of your Department will improve because 7-Eleven's transformation has been implemented?,4,2,sfb|lv1_success
+61,Your team's effectiveness at getting work done,4,1,bpb|effectiveness
+62,"The level of service your team provides to internal/external customers (e.g. HR serves employees (internal customers), Finance serves vendors (external customers), Researchers support scientific findings)",4,1,bpb|customer_service
+63,Managing costs and resources in your organisation / team,4,1,bpb|change_cost_management
+64,"Team alignment between A*STAR and Research Entities on HR, FIN, Procurement and Scholarship processes",4,2,sfa|increased_alignment_business
+65,"Time savings through simplified HR, Finance, procurement, scholarship and employee-related functionalities and processes",4,2,sfa|auto_benefits_better_integration
+66,Improved employee experience through a digital front door,4,2,sfa|benefits_employee_exp
+67,"A scalable workforce with enhanced insights (e.g., spend, talent, supplier visibility) and data-driven decision-making capabilities",4,2,sfa|auto_benefits_better_data-driven_decisions
+68,How confident are you that the performance of your team will improve because ERP 2.0 has been implemented?,4,2,sfb|lv1_success
+69,How clear are your roles and responsibilities within your team?,4,3,llb|role_clarity
+70,How much are people in your team held accountable for achieving their objectives?,4,3,llb|accountable
+71,To what extent does your team have clear performance objectives and measurable outcomes?,4,3,llb|objectives_outcomes
+72,How would you rate the overall management capability of your direct supervisor in leading change implementation - building and mobilising people's commitment?,4,4,llb|leads_implementation
+73,How would you rate the overall management capability of your direct supervisor in coaching people to develop their potential?,4,4,llb|performance_management
+74,To what degree do you feel your talents and capabilities are being fully utilised?,4,4,llb|talents_utilised
+75,How confident and trusting are you in your direct supervisor's leadership?,4,4,llb|conf_lv5_ldr
+76,How recognised and rewarded do you feel for achieving results?,4,4,llb|recognised_rewarded
+77,"To what extent has your Leadership (e.g., DCEs, Group Directors, RI Executive Directors) actively demonstrated support and commitment for ERP 2.0?",4,5,enb|ldr_support_system
+78,"To what extent has your Leadership (e.g., DCEs, Group Directors, RI Executive Directors) provided the appropriate levels of time and resources needed to ensure ERP 2.0 is successful?",4,5,enb|ldr_time_resources
+79,How confident and trusting are you in your leadership?,4,5,enb|conf_lv2_ldr
+80,"How well does your Leadership (e.g., DCEs, Group Directors, RI Executive Directors) lead ERP 2.0?",4,5,sfb|current_change_mgmt
+81,"To what extent has your Leadership (e.g., DCEs, Group Directors, RI Executive Directors) addressed critical issues/problems related to ERP 2.0?",4,5,rsb|quick_remedial
+82,"TGenerally, what are people feeling within your team (also taking into account your own feelings)?",4,6,eeb|fear
+83,"Distress - e.g., people feel sad, hurting, helpless, in need",4,6,eeb|distress
+84,"Anger - e.g., people feel cynical, angry, bored, blaming",4,6,eeb|anger
+85,How clear are your roles and responsibilities within your team?,4,3,llb|role_clarity
+86,How much are people in your team held accountable for achieving their objectives?,4,3,llb|accountable
+87,To what extent does your team have clear performance objectives and measurable outcomes?,4,3,llb|objectives_outcomes
+88,How would you rate the overall management capability of your direct supervisor in leading change implementation - building and mobilising people's commitment?,4,4,llb|leads_implementation
+89,How would you rate the overall management capability of your direct supervisor in coaching people to develop their potential?,4,4,llb|performance_management
+90,To what degree do you feel your talents and capabilities are being fully utilised?,4,4,llb|talents_utilised
+91,How confident and trusting are you in your direct supervisor's leadership?,4,4,llb|conf_lv5_ldr
+92,How recognised and rewarded do you feel for achieving results?,4,4,llb|recognised_rewarded
+93,"To what extent has your Leadership (e.g., DCEs, Group Directors, RI Executive Directors) actively demonstrated support and commitment for ERP 2.0?",4,5,enb|ldr_support_system
+94,"To what extent has your Leadership (e.g., DCEs, Group Directors, RI Executive Directors) provided the appropriate levels of time and resources needed to ensure ERP 2.0 is successful?",4,5,enb|ldr_time_resources
+95,How confident and trusting are you in your leadership?,4,5,enb|conf_lv2_ldr
+96,"How well does your Leadership (e.g., DCEs, Group Directors, RI Executive Directors) lead ERP 2.0?",4,5,sfb|current_change_mgmt
+97,"To what extent has your Leadership (e.g., DCEs, Group Directors, RI Executive Directors) addressed critical issues/problems related to ERP 2.0?",4,5,rsb|quick_remedial
+98,"TGenerally, what are people feeling within your team (also taking into account your own feelings)?",4,6,eeb|fear
+99,"Distress - e.g., people feel sad, hurting, helpless, in need",4,6,eeb|distress
+100,"Anger - e.g., people feel cynical, angry, bored, blaming",4,6,eeb|anger

@@ -1,6 +1,13 @@
 import streamlit as st
+from module.supabase_client import supabase
 from database_client import con
-from modules import figure_line_by_cycle, figure_line_by_cycle_by_driver, nest_by_drivers_name, nest_by_driver_name_qcode
+from modules import (
+    figure_line_by_cycle, 
+    figure_line_by_cycle_by_driver, 
+    nest_by_drivers_name, 
+    grouped_by_drivers_name_cycle_answers,
+    nest_by_driver_name_qcode,
+    grouped_by_drivers_name_and_qcodes_cycle_answers)
 
 
 def show_results_timeline_page():
@@ -11,60 +18,13 @@ def show_results_timeline_page():
         if st.button("Back to Login", key="back_to_login"):
             st.session_state['page'] = 'login'
 
+    drivers = supabase.rpc("get_drivers_of_user_and_survey", {"username_input": f'{st.session_state['username']}', "survey_input": f'{st.session_state['surveys']}'}).execute()
 
-    drivers = con.sql(f"""                        
-                            with latest_answer AS (
-                            SELECT
-                            --    q.id AS question_id,
-                                cast(regexp_extract(s.cycle, '[0-9]+', 0) as integer) as "cycle",
-                                d.drivers_name,
-                            --    q.qcode,
-                                CAST(a.answers AS INTEGER) AS answers,
-                            --    a.modified_time
-                            FROM answers a
-                            JOIN users u      ON u.id = a.user_id
-                            JOIN questions q  ON q.id = a.questions_id
-                            JOIN surveys s    ON s.id = q.surveys_id
-                            JOIN drivers d    ON d.id = q.drivers_id
-                            WHERE u.username = '{st.session_state['username']}'
-                            AND s.name = '{st.session_state['surveys']}'
-                            QUALIFY ROW_NUMBER() OVER (
-                                PARTITION BY s.cycle, d.drivers_name
-                                ORDER BY a.modified_time DESC, a.id DESC
-                            ) = 1)
-                            SELECT * FROM latest_answer 
-                            order by drivers_name, cycle;
-                        """).fetchall()
-
-    qcode = con.sql(
-                            f"""
-                          with latest_answer AS (
-                            SELECT
-                            --    q.id AS question_id,
-                            --    s.cycle,
-                            d.drivers_name,
-                                cast(regexp_extract(s.cycle, '[0-9]+', 0) as integer) as "cycle",
-                                q.qcode,
-                                CAST(a.answers AS INTEGER) AS answers,
-                            --     a.modified_time
-                            FROM answers a
-                            JOIN users u      ON u.id = a.user_id
-                            JOIN questions q  ON q.id = a.questions_id
-                            JOIN surveys s    ON s.id = q.surveys_id
-                            JOIN drivers d    ON d.id = q.drivers_id
-                            WHERE u.username = '{st.session_state['username']}'
-                            AND s.name = '{st.session_state['surveys']}'
-                            QUALIFY ROW_NUMBER() OVER (
-                                PARTITION BY s.cycle, q.qcode
-                                ORDER BY a.modified_time DESC, a.id DESC
-                            ) = 1)
-                            SELECT * FROM latest_answer order by qcode, cycle;
-                            """
-                            ).fetchall()
+    qcode = supabase.rpc("get_qcodes_of_user_and_survey", {"username_input": f'{st.session_state['username']}', "survey_input": f'{st.session_state['surveys']}'}).execute()
     
-    drivers_data = nest_by_drivers_name(drivers)
+    drivers_data = grouped_by_drivers_name_cycle_answers(drivers.data)
 
-    qcode_data = nest_by_driver_name_qcode(qcode)
+    qcode_data = grouped_by_drivers_name_and_qcodes_cycle_answers(qcode.data)
     
     st.title(f"Change Tracker Dashboard for {st.session_state['username']} on {st.session_state['surveys_date']}")
 

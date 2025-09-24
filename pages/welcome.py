@@ -5,7 +5,7 @@ from module.supabase_client import supabase
 
 def show_welcome_page():
     st.session_state['surveys'] = "Employee Satisfaction Survey"
-    st.session_state['cycle'] = "Cycle 2"
+    st.session_state['cycle'] = "Cycle 3"
     response = (
         supabase.table("surveys")
         .select("created_time")

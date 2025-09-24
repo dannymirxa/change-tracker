@@ -61,6 +61,36 @@ def list_to_dict(data: list) -> dict:
     data_dict = {row['question']: row['answer'] for row in data}
     return data_dict
 
+def grouped_by_drivers_name_question_answers(data: dict) -> dict:
+    grouped = defaultdict(list)
+    for item in data:
+        grouped[item['drivers_name']].append({
+            "question": item['qcode'],
+            "answer": item['answers']
+        })
+    return dict(grouped)
+
+def grouped_by_drivers_name_cycle_answers(data: dict) -> dict:
+    grouped = defaultdict(list)
+    for item in data:
+        grouped[item['drivers_name']].append({
+            "cycle": item['cycle'],
+            "answer": item['answers']
+        })
+    return dict(grouped)
+
+def grouped_by_drivers_name_and_qcodes_cycle_answers(data):
+    result = defaultdict(lambda: defaultdict(list))
+    for row in data:
+        driver = row["drivers_name"]
+        qcode = row["qcode"]
+        result[driver][qcode].append({
+            "cycle": row["cycle"],
+            "answer": row["answers"]
+        })
+    # Convert nested defaultdicts back to normal dicts
+    return {drv: dict(qs) for drv, qs in result.items()}
+
 
 def figure_scale_by_value(
     title: str,

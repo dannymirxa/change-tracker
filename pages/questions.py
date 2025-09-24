@@ -259,18 +259,48 @@ def show_questions():
         responses_df = pd.json_normalize(answers, record_path='responses', meta='user_id')
         st.write("Answers DataFrame ready for insertion:")
         st.dataframe(responses_df)
-        # Insert data from DataFrame into the DuckDB answers table
+        # Build rows for batch insert into Supabase
+        rows = []
         for index, row in responses_df.iterrows():
-            # Sanitize and coerce types to avoid DuckDB parameter errors (e.g. NaN or numpy types)
             user_id = int(row['user_id'])
             question_id = int(row['question_id'])
             answer_val = int(row['answer']) if pd.notna(row['answer']) else None
             comment_val = row['comment'] if (pd.notna(row.get('comment')) and row.get('comment') is not None) else ""
-            con.execute(
-                "INSERT INTO answers (user_id, questions_id, answers, comments) VALUES (?, ?, ?, ?)",
-                (user_id, question_id, answer_val, comment_val)
-            )
-        st.success("Responses successfully inserted into the database.")
-        # Navigate to results page only after inserts are complete, then rerun so the results page reads fresh data
-        st.session_state['page'] = 'results_latest'
-        st.rerun()
+
+            rows.append({
+                "user_id": user_id,
+                "questions_id": question_id,
+                "answers": answer_val,
+                "comments": comment_val
+                # Leave timestamps to DB defaults
+            })
+
+        if rows:
+            try:
+                result = supabase.table("answers").insert(rows).execute()
+            except Exception as e:
+                # Postgrest client can raise APIError; catch and surface details for debugging
+                st.error(f"Exception while inserting into Supabase: {e}")
+            else:
+                # Try to read structured error info if present
+                err = getattr(result, "error", None) or (result if isinstance(result, dict) and result.get("error") else None)
+                data = getattr(result, "data", None) or (result if isinstance(result, dict) and result.get("data") else None)
+
+                if err:
+                    # Provide as much context as possible to help debugging
+                    # Many Postgrest errors come back as dicts with 'message' or 'details'
+                    msg = getattr(err, "message", None) or (err.get("message") if isinstance(err, dict) else None) or str(err)
+                    details = err.get("details") if isinstance(err, dict) else None
+                    hint = err.get("hint") if isinstance(err, dict) else None
+                    st.error(f"Failed to insert responses into Supabase: {msg}")
+                    if details:
+                        st.text(f"Details: {details}")
+                    if hint:
+                        st.text(f"Hint: {hint}")
+                else:
+                    st.success("Responses successfully inserted into Supabase.")
+                    # Navigate to results page only after inserts are complete
+                    st.session_state['page'] = 'results_latest'
+                    st.rerun()
+        else:
+            st.warning("No response rows to insert.")
