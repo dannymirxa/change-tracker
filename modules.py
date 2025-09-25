@@ -66,7 +66,7 @@ def grouped_by_drivers_name_question_answers(data: dict) -> dict:
     for item in data:
         grouped[item['drivers_name']].append({
             "question": item['qcode'],
-            "answer": item['answers']
+            "answer": item['average_answer']
         })
     return dict(grouped)
 
